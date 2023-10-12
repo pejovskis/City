@@ -62,6 +62,7 @@
             lblPlayerName = new Label();
             lblPlayerId = new Label();
             lblPlayerBuildings = new Label();
+            lblTimeLastingPromotion = new Label();
             SuspendLayout();
             // 
             // btnGenerete
@@ -114,7 +115,7 @@
             // lblPriceToUpgrade
             // 
             lblPriceToUpgrade.AutoSize = true;
-            lblPriceToUpgrade.Location = new Point(70, 351);
+            lblPriceToUpgrade.Location = new Point(67, 365);
             lblPriceToUpgrade.Name = "lblPriceToUpgrade";
             lblPriceToUpgrade.Size = new Size(99, 15);
             lblPriceToUpgrade.TabIndex = 5;
@@ -186,7 +187,7 @@
             // lblBruttoInCome
             // 
             lblBruttoInCome.AutoSize = true;
-            lblBruttoInCome.Location = new Point(70, 426);
+            lblBruttoInCome.Location = new Point(67, 440);
             lblBruttoInCome.Name = "lblBruttoInCome";
             lblBruttoInCome.Size = new Size(91, 15);
             lblBruttoInCome.TabIndex = 13;
@@ -233,7 +234,7 @@
             // lblPriceBuy
             // 
             lblPriceBuy.AutoSize = true;
-            lblPriceBuy.Location = new Point(70, 321);
+            lblPriceBuy.Location = new Point(67, 335);
             lblPriceBuy.Name = "lblPriceBuy";
             lblPriceBuy.Size = new Size(59, 15);
             lblPriceBuy.TabIndex = 18;
@@ -242,7 +243,7 @@
             // lblTaxPay
             // 
             lblTaxPay.AutoSize = true;
-            lblTaxPay.Location = new Point(68, 411);
+            lblTaxPay.Location = new Point(65, 425);
             lblTaxPay.Name = "lblTaxPay";
             lblTaxPay.Size = new Size(49, 15);
             lblTaxPay.TabIndex = 20;
@@ -251,7 +252,7 @@
             // lblBankruptTolerance
             // 
             lblBankruptTolerance.AutoSize = true;
-            lblBankruptTolerance.Location = new Point(70, 336);
+            lblBankruptTolerance.Location = new Point(67, 350);
             lblBankruptTolerance.Name = "lblBankruptTolerance";
             lblBankruptTolerance.Size = new Size(111, 15);
             lblBankruptTolerance.TabIndex = 21;
@@ -260,7 +261,7 @@
             // lblPricePromote
             // 
             lblPricePromote.AutoSize = true;
-            lblPricePromote.Location = new Point(70, 381);
+            lblPricePromote.Location = new Point(67, 395);
             lblPricePromote.Name = "lblPricePromote";
             lblPricePromote.Size = new Size(85, 15);
             lblPricePromote.TabIndex = 22;
@@ -269,7 +270,7 @@
             // lblPriceRepair
             // 
             lblPriceRepair.AutoSize = true;
-            lblPriceRepair.Location = new Point(70, 366);
+            lblPriceRepair.Location = new Point(67, 380);
             lblPriceRepair.Name = "lblPriceRepair";
             lblPriceRepair.Size = new Size(72, 15);
             lblPriceRepair.TabIndex = 23;
@@ -278,7 +279,7 @@
             // lblPriceSell
             // 
             lblPriceSell.AutoSize = true;
-            lblPriceSell.Location = new Point(70, 396);
+            lblPriceSell.Location = new Point(67, 410);
             lblPriceSell.Name = "lblPriceSell";
             lblPriceSell.Size = new Size(57, 15);
             lblPriceSell.TabIndex = 24;
@@ -287,7 +288,7 @@
             // lblNettoInCome
             // 
             lblNettoInCome.AutoSize = true;
-            lblNettoInCome.Location = new Point(70, 441);
+            lblNettoInCome.Location = new Point(67, 455);
             lblNettoInCome.Name = "lblNettoInCome";
             lblNettoInCome.Size = new Size(88, 15);
             lblNettoInCome.TabIndex = 25;
@@ -296,7 +297,7 @@
             // lblCustomerSatisfiction
             // 
             lblCustomerSatisfiction.AutoSize = true;
-            lblCustomerSatisfiction.Location = new Point(68, 486);
+            lblCustomerSatisfiction.Location = new Point(65, 500);
             lblCustomerSatisfiction.Name = "lblCustomerSatisfiction";
             lblCustomerSatisfiction.Size = new Size(126, 15);
             lblCustomerSatisfiction.TabIndex = 26;
@@ -305,7 +306,7 @@
             // lblExpenses
             // 
             lblExpenses.AutoSize = true;
-            lblExpenses.Location = new Point(70, 456);
+            lblExpenses.Location = new Point(67, 470);
             lblExpenses.Name = "lblExpenses";
             lblExpenses.Size = new Size(58, 15);
             lblExpenses.TabIndex = 27;
@@ -314,7 +315,7 @@
             // lblWin
             // 
             lblWin.AutoSize = true;
-            lblWin.Location = new Point(69, 471);
+            lblWin.Location = new Point(66, 485);
             lblWin.Name = "lblWin";
             lblWin.Size = new Size(31, 15);
             lblWin.TabIndex = 28;
@@ -323,7 +324,7 @@
             // lblRating
             // 
             lblRating.AutoSize = true;
-            lblRating.Location = new Point(68, 501);
+            lblRating.Location = new Point(65, 515);
             lblRating.Name = "lblRating";
             lblRating.Size = new Size(44, 15);
             lblRating.TabIndex = 30;
@@ -374,11 +375,21 @@
             lblPlayerBuildings.TabIndex = 36;
             lblPlayerBuildings.Text = "Owned Buildings:";
             // 
+            // lblTimeLastingPromotion
+            // 
+            lblTimeLastingPromotion.AutoSize = true;
+            lblTimeLastingPromotion.Location = new Point(67, 320);
+            lblTimeLastingPromotion.Name = "lblTimeLastingPromotion";
+            lblTimeLastingPromotion.Size = new Size(134, 15);
+            lblTimeLastingPromotion.TabIndex = 37;
+            lblTimeLastingPromotion.Text = "Time Lasting Promotion";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 626);
+            Controls.Add(lblTimeLastingPromotion);
             Controls.Add(lblPlayerBuildings);
             Controls.Add(lblPlayerCapital);
             Controls.Add(lblPlayerName);
@@ -456,5 +467,6 @@
         private Label lblPlayerName;
         private Label lblPlayerId;
         private Label lblPlayerBuildings;
+        private Label lblTimeLastingPromotion;
     }
 }

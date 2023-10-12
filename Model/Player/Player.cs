@@ -10,17 +10,31 @@ namespace City.Model.Player
     public class Player
     {
 
-        private int Id;
-        private string Name;
-        private float Capital;
-        private List<int> OwnedBuildings;
-
-        public Player(int Id, string Name, float Capital)
+        public int Id
         {
-            this.Id = Id;
-            this.Name = Name;
-            this.Capital = Capital;
-            this.OwnedBuildings = new List<int>();
+            get;
+        }
+        public string Name
+        {
+            get;
+        }
+        public float Capital
+        {
+            get;
+            set;
+        }
+        public List<int> OwnedBuildings
+        {
+            get;
+            set;
+        }
+
+        public Player(int id, string name, float capital)
+        {
+            Id = id;
+            Name = name;
+            Capital = capital;
+            OwnedBuildings = new List<int>();
         }
 
 
@@ -28,24 +42,20 @@ namespace City.Model.Player
         // Building Interactions
         public void BuildingBuy(Building.Building Building)
         {
-            // Variable Init
-            bool Sold = Building.Sold;
-            float BuildingBuyPrice = Building.PriceToBuy;
-            int BuildingId = Building.Id; 
 
-            if(!Sold && BuildingBuyPrice < this.Capital)
+            if(!Building.Sold && Building.PriceToBuy < Capital)
             {
-                this.Capital -= BuildingBuyPrice; 
+                this.Capital -= Building.PriceToBuy; 
                 Building.Owner = this.Id;
                 Building.Sold = true;
-                SetOwnedBuildings(BuildingId);
+                OwnedBuildings.Add(Building.Id);
             } else
             {
-                if (Sold)
+                if (Building.Sold)
                 {
                     MessageBox.Show("The building is already sold.", "Error");
                 }
-                else if (BuildingBuyPrice >= this.Capital)
+                else if (Building.PriceToBuy >= this.Capital)
                 {
                     MessageBox.Show("Not enough money to buy the building.", "Error");
                 }
@@ -59,24 +69,21 @@ namespace City.Model.Player
 
         public void BuildingUpgrade(Building.Building Building)
         {
-            int BuildingOwner = Building.Owner;
-            float BuildingPriceToUpgrade = Building.PriceToUpgrade;
-            int BuildingLevel = Building.Level;
 
-            if(BuildingLevel < 10 && BuildingOwner == this.Id && BuildingPriceToUpgrade < this.Capital)
+            if(Building.Level < 10 && Building.Owner == this.Id && Building.PriceToUpgrade < this.Capital)
             {
                 Building.UpgradeLevel();
             } else
             {
-                if (BuildingLevel >= 10)
+                if (Building.Level >= 10)
                 {
                     MessageBox.Show("The building is already at the maximum level.", "Error");
                 }
-                else if (BuildingOwner != this.Id)
+                else if (Building.Owner != this.Id)
                 {
                     MessageBox.Show("You do not own this building.", "Error");
                 }
-                else if (BuildingPriceToUpgrade >= this.Capital)
+                else if (Building.PriceToUpgrade >= this.Capital)
                 {
                     MessageBox.Show("Not enough money to upgrade the building.", "Error");
                 }
@@ -88,48 +95,42 @@ namespace City.Model.Player
             
         }
 
-
-
-        // Getter & Setter
-        public int GetId()
+        public void BuildingPromote(Building.Building Building)
         {
-            return this.Id;
+            if(Capital > Building.PriceToPromote)
+            {
+                Capital -= Building.PriceToPromote;
+                Building.TimeLastingPromotion = 100;
+                Building.BruttoIncome *= 1.3f;
+            }
         }
 
-        public void SetId(int Id)
+        public void BuildingRepair(Building.Building Building)
         {
-            this.Id = Id;
+            if(Building.Health < 1000 && Capital > Building.PriceToRepair)
+            {
+                Capital -= Building.PriceToRepair;
+                Building.Health = 1000;
+            }
         }
 
-        public string GetName()
+        public void BuildingEmployWorker(Building.Building Building)
         {
-            return this.Name;
+            if(Building.WorkersEmployed < Building.WorkerCapacity)
+            {
+                Building.WorkersEmployed++;
+            }
         }
 
-        public void SetName(string Name)
+        public void BuildingFireWorker(Building.Building Building)
         {
-            this.Name = Name;
+            if(Building.WorkersEmployed > 1)
+            {
+                Building.WorkersEmployed--;
+            }
         }
 
-        public float GetCapital()
-        {
-            return this.Capital;
-        }
 
-        public void SetCapital(float Capital)
-        {
-            this.Capital = Capital;
-        }
-
-        public List<int> GetOwnedBuildings()
-        {
-            return this.OwnedBuildings;
-        }
-
-        public void SetOwnedBuildings(int NewBuilding)
-        {
-            this.OwnedBuildings.Add(NewBuilding);
-        }
 
     }
 }

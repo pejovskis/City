@@ -12,7 +12,7 @@ namespace City
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Building CityHall = new CityHall(1, "City Hall", 800, "Hearth of the City", 300, 30, 150, 650, 190);
+            Building CityHall = new CityHall(1, "City Hall", 800, "Hearth of the City", 30, 150, 650, 190);
             Player PlayerOne = new Player(1, "Player One", 1000);
 
             // Label Init
@@ -20,6 +20,10 @@ namespace City
 
             PlayerOne.BuildingBuy(CityHall);
             PlayerOne.BuildingUpgrade(CityHall);
+
+            lblInit(CityHall, PlayerOne);
+
+            PlayerOne.BuildingPromote(CityHall);
 
             lblInit(CityHall, PlayerOne);
         }
@@ -49,21 +53,22 @@ namespace City
             lblPriceRepair.Text += CityHall.PriceToRepair + " => ";
             lblPricePromote.Text += CityHall.PriceToPromote + " => ";
             lblPriceSell.Text += CityHall.PriceToSell + " => ";
-            lblTaxPay.Text += CityHall.TaxPay + " => ";
+            lblTaxPay.Text += CityHall.TaxRate + " => ";
             lblBruttoInCome.Text += CityHall.BruttoIncome + " => ";
             lblNettoInCome.Text += CityHall.NettoIncome + " => ";
             lblExpenses.Text += CityHall.Expenses + " => ";
-            lblWin.Text += CityHall.Win + " => ";
+            lblWin.Text += CityHall.NettoWin + " => ";
             lblCustomerSatisfiction.Text += CityHall.CustomerSatisfaction + " => ";
             lblRating.Text += CityHall.Rating + " => ";
+            lblTimeLastingPromotion.Text += CityHall.TimeLastingPromotion + " => ";
 
             // Player
-            lblPlayerId.Text += PlayerOne.GetId() + " => ";
-            lblPlayerName.Text += PlayerOne.GetName() + " => ";
-            lblPlayerCapital.Text += PlayerOne.GetCapital().ToString() + " => ";
-            if(PlayerOne.GetOwnedBuildings() != null)
+            lblPlayerId.Text += PlayerOne.Id + " => ";
+            lblPlayerName.Text += PlayerOne.Name + " => ";
+            lblPlayerCapital.Text += PlayerOne.Capital.ToString() + " => ";
+            if (PlayerOne.OwnedBuildings != null)
             {
-                foreach (int OwnedBuilding in PlayerOne.GetOwnedBuildings())
+                foreach (int OwnedBuilding in PlayerOne.OwnedBuildings)
                 {
                     lblPlayerBuildings.Text += OwnedBuilding.ToString() + ", ";
                 }
