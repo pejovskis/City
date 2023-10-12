@@ -1,6 +1,6 @@
 ﻿namespace City.Model.Building
 {
-    internal class CityHall : Building
+    public class CityHall : Building
     {
 
         //Constructor
@@ -11,7 +11,7 @@
             int WorkerCapacity, 
             float PriceBuy, 
             int BankruptTolerance, 
-            int TaxPay)
+            int TaxRate)
 
             : base(Id, 
                   Name, 
@@ -20,7 +20,7 @@
                   WorkerCapacity, 
                   PriceBuy, 
                   BankruptTolerance, 
-                  TaxPay)
+                  TaxRate)
         {
 
 

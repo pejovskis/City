@@ -1,5 +1,6 @@
 using City.Model.Building;
 using City.Model.Player;
+using City.View.Gameplay;
 
 namespace City
 {
@@ -93,6 +94,12 @@ namespace City
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnFrontEnd_Click(object sender, EventArgs e)
+        {
+            var MainWindow = new Main();
+            MainWindow.Show();
         }
     }
 }

@@ -172,7 +172,9 @@ namespace City.Model.Building
         {
             get
             {
-                float Expenses = 0;
+                int Multiplicator = 50; // 50 %
+
+                float Expenses = WorkersEmployed * (Multiplicator * BruttoIncome / 100);
 
                 return Expenses;
             }
@@ -223,6 +225,10 @@ namespace City.Model.Building
         public void UpgradeLevel()
         {
             this.Level++;
+        }
+        public float SalarayPay()
+        {
+            return Expenses / WorkersEmployed;
         }
 
     }

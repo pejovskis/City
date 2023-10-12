@@ -63,6 +63,7 @@
             lblPlayerId = new Label();
             lblPlayerBuildings = new Label();
             lblTimeLastingPromotion = new Label();
+            btnFrontEnd = new Button();
             SuspendLayout();
             // 
             // btnGenerete
@@ -384,11 +385,22 @@
             lblTimeLastingPromotion.TabIndex = 37;
             lblTimeLastingPromotion.Text = "Time Lasting Promotion";
             // 
+            // btnFrontEnd
+            // 
+            btnFrontEnd.Location = new Point(644, 37);
+            btnFrontEnd.Name = "btnFrontEnd";
+            btnFrontEnd.Size = new Size(75, 23);
+            btnFrontEnd.TabIndex = 38;
+            btnFrontEnd.Text = "Front End";
+            btnFrontEnd.UseVisualStyleBackColor = true;
+            btnFrontEnd.Click += btnFrontEnd_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 626);
+            Controls.Add(btnFrontEnd);
             Controls.Add(lblTimeLastingPromotion);
             Controls.Add(lblPlayerBuildings);
             Controls.Add(lblPlayerCapital);
@@ -468,5 +480,6 @@
         private Label lblPlayerId;
         private Label lblPlayerBuildings;
         private Label lblTimeLastingPromotion;
+        private Button btnFrontEnd;
     }
 }
