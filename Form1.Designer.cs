@@ -1,4 +1,6 @@
-﻿namespace City
+﻿using City.Model.Building;
+
+namespace City
 {
     partial class Form1
     {
@@ -64,6 +66,7 @@
             lblPlayerBuildings = new Label();
             lblTimeLastingPromotion = new Label();
             btnFrontEnd = new Button();
+            lblSalaryMonthly = new Label();
             SuspendLayout();
             // 
             // btnGenerete
@@ -395,11 +398,21 @@
             btnFrontEnd.UseVisualStyleBackColor = true;
             btnFrontEnd.Click += btnFrontEnd_Click;
             // 
+            // lblSalaryMonthly
+            // 
+            lblSalaryMonthly.AutoSize = true;
+            lblSalaryMonthly.Location = new Point(68, 530);
+            lblSalaryMonthly.Name = "lblSalaryMonthly";
+            lblSalaryMonthly.Size = new Size(89, 15);
+            lblSalaryMonthly.TabIndex = 39;
+            lblSalaryMonthly.Text = "Salary Monthly:";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 626);
+            Controls.Add(lblSalaryMonthly);
             Controls.Add(btnFrontEnd);
             Controls.Add(lblTimeLastingPromotion);
             Controls.Add(lblPlayerBuildings);
@@ -481,5 +494,6 @@
         private Label lblPlayerBuildings;
         private Label lblTimeLastingPromotion;
         private Button btnFrontEnd;
+        private Label lblSalaryMonthly;
     }
 }

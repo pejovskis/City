@@ -1,4 +1,6 @@
-﻿namespace City.Model.Building
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace City.Model.Building
 {
     public class CityHall : Building
     {
@@ -6,12 +8,14 @@
         //Constructor
         public CityHall(int Id, 
             string Name, 
-            int Quality, 
+            float Quality, 
             string Description, 
             int WorkerCapacity, 
             float PriceBuy, 
-            int BankruptTolerance, 
-            int TaxRate)
+            float BankruptTolerance, 
+            float TaxRate,
+            float IncomeBase,
+            float OutcomeBase)
 
             : base(Id, 
                   Name, 
@@ -20,11 +24,22 @@
                   WorkerCapacity, 
                   PriceBuy, 
                   BankruptTolerance, 
-                  TaxRate)
+                  TaxRate,
+                  IncomeBase,
+                  OutcomeBase)
         {
-
-
             
         }
+
+        public void TaxIncrease()
+        {
+            TaxRate++;
+        }
+
+        public void TaxDecrease() 
+        {
+            TaxRate--;
+        }
+
     }
 }

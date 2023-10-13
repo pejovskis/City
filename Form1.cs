@@ -13,7 +13,7 @@ namespace City
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Building CityHall = new CityHall(1, "City Hall", 800, "Hearth of the City", 30, 150, 650, 190);
+            Building CityHall = new CityHall(1, "City Hall", 800, "Hearth of the City", 30, 150, 650, 190, 100000, 100000);
             Player PlayerOne = new Player(1, "Player One", 1000);
 
             // Label Init
@@ -62,6 +62,7 @@ namespace City
             lblCustomerSatisfiction.Text += CityHall.CustomerSatisfaction + " => ";
             lblRating.Text += CityHall.Rating + " => ";
             lblTimeLastingPromotion.Text += CityHall.TimeLastingPromotion + " => ";
+            lblSalaryMonthly.Text += CityHall.SalaryMonhtly + " => ";
 
             // Player
             lblPlayerId.Text += PlayerOne.Id + " => ";

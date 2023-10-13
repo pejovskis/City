@@ -8,7 +8,7 @@ namespace City.Model.Building
         // Main
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Quality { get; set; } // Assuming a max of 1000 can be enforced elsewhere
+        public float Quality { get; set; } // Assuming a max of 1000 can be enforced elsewhere
         public string Description { get; set; }
         public int Owner { 
             get; 
@@ -16,37 +16,30 @@ namespace City.Model.Building
         public bool Sold { get; set; } = false;
         public bool InMaintenance { get; private set; } = false;
         public bool IsBankrupt { get; private set; } = false;
+        public float IncomeBase { get; set; }
+        public float OutcomeBase { get; set; }
 
         // Stats
         public int Level { get; private set; } = 1;
-        private int _size;  // Backing field 
 
-        public int Size
-        {
-            get
-            {
-                return _size * Level;
-            }
-            set  // Optional, if you need to set Size from outside or within the class
-            {
-                _size = 100;  // Here, you can add additional logic, like enforcing a max value if needed.
-            }
-        }
+        public int Size { get; set; }
 
         public int WorkerCapacity { get; set; }
         public int WorkersEmployed { get; set; }
-        public int Health { get; set; } = 1000;
-        public int Efficiency
+        public float Health { get; set; } = 100;
+        public float Efficiency
         {
             get
             {
-                int efficiency = 1000;
+                float efficiency = 100;
 
-                if (this.Health < 1000)
+                if (this.Health < 100)
                 {
-                    int difference = 1000 - this.Health;
-                    efficiency -= (int)(difference * (1 + this.Level / 10));
+                    float difference = 100 - this.Health;
+                    efficiency -= (difference * (1 + this.Level / 10));
                 }
+
+                efficiency = efficiency - (WorkersEmployed / WorkerCapacity * 100); 
 
                 return efficiency;
             }
@@ -84,30 +77,13 @@ namespace City.Model.Building
         public int TimeLastingPromotion { get; set; }
 
         // Price
-        private float _priceToBuy;  // backing field
-        public float PriceToBuy
-        {
-            get
-            {
-                if (Level > 1)
-                {
-                    return _priceToBuy + PriceToRepair;
-                }
-                return _priceToBuy;
-            }
-            private set
-            {
-                _priceToBuy = value;
-            }
-        }
+        public float PriceToBuy { get; set; }
 
-        public int BankruptTolerance { get; set; }
+        public float BankruptTolerance { get; set; }
         public float PriceToUpgrade { 
             get
             {
-                float PriceToUpgrade = this.PriceToBuy + (this.PriceToBuy / 3) * this.Level;
-
-                return PriceToUpgrade;
+                return PriceToBuy + (PriceToBuy / 3) * Level;
             }
         }
         public float PriceToRepair { 
@@ -141,31 +117,49 @@ namespace City.Model.Building
         {
             get
             {
-                float PriceToSell = 0;
                 int Narrower = 10;
 
-                PriceToSell = (this.PriceToBuy + this.Size + this.Quality) * this.Level / Narrower;
+                float priceToSell = (this.PriceToBuy + this.Size + this.Quality) * this.Level / Narrower;
 
-                return PriceToSell;
+                return priceToSell;
+            }
+        }
+
+        // Salary
+        public float SalaryMonhtly
+        {
+
+            get
+            {
+                int Narrower = 400;
+
+                return (WorkersEmployed * Quality * Efficiency * Level) / Narrower;
+            }
+        }
+
+        public float TaxPay
+        {
+            get
+            {
+                return (BruttoIncome * TaxRate) + (SalaryMonhtly * TaxRate);
             }
         }
 
         // Costs
-        public int TaxRate { get; private set; } = 190;
+        public float TaxRate { get; set; }
         public float BruttoIncome
         {
-            get;
-            set;
+            get
+            {
+                return (IncomeBase * Level * Quality * Efficiency);
+            }
+            set { }
         }
         public float NettoIncome
         {
             get
             {
-                float TaxToPay = BruttoIncome * (TaxRate / 100);
-
-                float NettoIncome = BruttoIncome - TaxToPay;
-
-                return NettoIncome;
+                return BruttoIncome - BruttoIncome * 0.19f;
             }
         }
         public float Expenses
@@ -173,8 +167,9 @@ namespace City.Model.Building
             get
             {
                 int Multiplicator = 50; // 50 %
+                float Expenses = 0;
 
-                float Expenses = WorkersEmployed * (Multiplicator * BruttoIncome / 100);
+                Expenses += SalaryMonhtly + TaxPay;
 
                 return Expenses;
             }
@@ -183,29 +178,27 @@ namespace City.Model.Building
         {
             get
             {
-                float TaxToPay = NettoIncome * (TaxRate / 100);
-
-                float Win = NettoIncome - Expenses - TaxToPay;
-
-                return Win;
+                return NettoIncome - Expenses;
             }
         }
 
         // Social
-        public int CustomerSatisfaction { get; set; } = 1000;
-        public int Rating { get; set; } = 1000;
+        public float CustomerSatisfaction { get; set; } = 100;
+        public float Rating { get; set; } = 100;
 
 
 
         public Building(
             int id,
             string name,
-            int quality,
+            float quality,
             string description,
             int workerCapacity,
             float priceToBuy,
-            int bankruptTolerance,
-            int taxRate
+            float bankruptTolerance,
+            float taxRate,
+            float incomeBase,
+            float outcomeBase
         )
         {
             // Manual Constructor
@@ -218,6 +211,9 @@ namespace City.Model.Building
             PriceToBuy = priceToBuy;
             BankruptTolerance = bankruptTolerance;
             TaxRate = taxRate;
+            IncomeBase = incomeBase;
+            OutcomeBase = outcomeBase;
+            TaxRate = 0.19f;
         }
 
 
@@ -229,6 +225,16 @@ namespace City.Model.Building
         public float SalarayPay()
         {
             return Expenses / WorkersEmployed;
+        }
+
+        public void EmployWorker()
+        {
+            WorkersEmployed++;
+        }
+
+        public void FireWorker()
+        {
+            WorkersEmployed--;
         }
 
     }
