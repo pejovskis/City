@@ -1,23 +1,22 @@
 ﻿using System;
+using City.Model.Global;
 
 namespace City.Model.Building
 {
-    abstract public class Building
+    abstract public class Building : Unit
     {
 
         // Main
         public int Id { get; set; }
         public string Name { get; set; }
-        public float Quality { get; set; } // Assuming a max of 1000 can be enforced elsewhere
         public string Description { get; set; }
+        public float Quality { get; set; } // Assuming a max of 1000 can be enforced elsewhere
         public int Owner { 
             get; 
             set; } = 0;  // Default 0. 0 = City
         public bool Sold { get; set; } = false;
         public bool InMaintenance { get; private set; } = false;
         public bool IsBankrupt { get; private set; } = false;
-        public float IncomeBase { get; set; }
-        public float OutcomeBase { get; set; }
 
         // Stats
         public int Level { get; private set; } = 1;
@@ -26,52 +25,25 @@ namespace City.Model.Building
 
         public int WorkerCapacity { get; set; }
         public int WorkersEmployed { get; set; }
-        public float Health { get; set; } = 100;
         public float Efficiency
         {
             get
             {
-                float efficiency = 100;
-
-                if (this.Health < 100)
-                {
-                    float difference = 100 - this.Health;
-                    efficiency -= (difference * (1 + this.Level / 10));
-                }
-
-                efficiency = efficiency - (WorkersEmployed / WorkerCapacity * 100); 
-
-                return efficiency;
+                return base.Efficiency -= (WorkersEmployed / WorkerCapacity * 100);
             }
         }
-
-        public int TimeToRepair
+        public float TimeToRepair
         {
             get
             {
-                int TimeToRepair = 0;
-
-                int Narrower = 100;
-
-                if (this.Health < 1000)
-                {
-                    int Difference = 1000 - this.Health;
-                    TimeToRepair = (this.Size + Difference + this.Quality) * this.Level / Narrower;
-                }
-
-
-
-                return TimeToRepair;
+                return (Health < 100) ? (Size + (100 - Health) * Level) : 0;
             }
         }
         public int TimeToUpgrade
         {
             get
             {
-                int Narrower = 30;
-                int TimeToUpgrade = (this.Size + this.Quality) * this.Level / Narrower;
-
-                return TimeToUpgrade;
+                return Size * (int)Quality * Level;
             }
         }
         public int TimeLastingPromotion { get; set; }
@@ -89,39 +61,22 @@ namespace City.Model.Building
         public float PriceToRepair { 
             get
             {
-                float PriceToRepair = 0;
-                int narrower = 100;
-
-                if (this.Health < 1000)
-                {
-
-                    int Difference = 1000 - this.Health;
-
-                    PriceToRepair += (this.Size + this.Quality + Difference) * this.Level / narrower;
-
-                }
-
-                return PriceToRepair;
+                return (Health < 100) ? (Size + Quality + (100 - Health) * Level) : 0;
             }
         }
         public float PriceToPromote { 
             get
             {
-                int Narrower = 100;
-                float PriceToPromote = (this.Size + this.Quality) * this.Level / Narrower;
 
-                return PriceToPromote;
+                return Size + Quality * Level ;
             }
         }
         public float PriceToSell
         {
             get
             {
-                int Narrower = 10;
 
-                float priceToSell = (this.PriceToBuy + this.Size + this.Quality) * this.Level / Narrower;
-
-                return priceToSell;
+                return PriceToBuy + Size + Quality * Level;
             }
         }
 
@@ -136,42 +91,49 @@ namespace City.Model.Building
                 return (WorkersEmployed * Quality * Efficiency * Level) / Narrower;
             }
         }
-
-        public float TaxPay
-        {
+        // Costs
+        public float CostsElectricity { 
             get
             {
-                return (BruttoIncome * TaxRate) + (SalaryMonhtly * TaxRate);
+                return Size * Quality * Level / Efficiency;
+            }
+        }
+        public float CostsWater {
+            get
+            {
+                return Size * Quality * Level / Efficiency;
             }
         }
 
-        // Costs
-        public float TaxRate { get; set; }
+        // Production
+        public float ProductionItemQuantity
+        {
+            get
+            {
+                return Efficiency * Size * Quality;
+            }
+        }
+
+        public float ProductionPiecePrice { get; set; }
         public float BruttoIncome
         {
             get
             {
-                return (IncomeBase * Level * Quality * Efficiency);
+                return ProductionItemQuantity * ProductionPiecePrice;
             }
-            set { }
         }
         public float NettoIncome
         {
             get
             {
-                return BruttoIncome - BruttoIncome * 0.19f;
+                return BruttoIncome - BruttoIncome * TaxRate;
             }
         }
         public float Expenses
         {
             get
             {
-                int Multiplicator = 50; // 50 %
-                float Expenses = 0;
-
-                Expenses += SalaryMonhtly + TaxPay;
-
-                return Expenses;
+                return SalaryMonhtly + CostsElectricity + CostsWater;
             }
         }
         public float NettoWin
@@ -195,10 +157,7 @@ namespace City.Model.Building
             string description,
             int workerCapacity,
             float priceToBuy,
-            float bankruptTolerance,
-            float taxRate,
-            float incomeBase,
-            float outcomeBase
+            float bankruptTolerance
         )
         {
             // Manual Constructor
@@ -210,10 +169,6 @@ namespace City.Model.Building
             WorkersEmployed = WorkerCapacity;  // Assuming this should always match initially
             PriceToBuy = priceToBuy;
             BankruptTolerance = bankruptTolerance;
-            TaxRate = taxRate;
-            IncomeBase = incomeBase;
-            OutcomeBase = outcomeBase;
-            TaxRate = 0.19f;
         }
 
 
@@ -229,12 +184,18 @@ namespace City.Model.Building
 
         public void EmployWorker()
         {
-            WorkersEmployed++;
+            if (WorkersEmployed < WorkerCapacity)
+            {
+                WorkersEmployed++;
+            }
         }
 
         public void FireWorker()
         {
-            WorkersEmployed--;
+            if (WorkersEmployed > 1)
+            {
+                WorkersEmployed--;
+            }
         }
 
     }

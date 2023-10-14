@@ -114,22 +114,6 @@ namespace City.Model.Player
             }
         }
 
-        public void BuildingEmployWorker(Building.Building Building)
-        {
-            if(Building.WorkersEmployed < Building.WorkerCapacity)
-            {
-                Building.WorkersEmployed++;
-            }
-        }
-
-        public void BuildingFireWorker(Building.Building Building)
-        {
-            if(Building.WorkersEmployed > 1)
-            {
-                Building.WorkersEmployed--;
-            }
-        }
-
 
 
     }
