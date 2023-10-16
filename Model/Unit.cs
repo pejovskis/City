@@ -9,7 +9,7 @@ namespace City.Model
     public abstract class Unit
     {
         // Fields
-        public float TaxRate;
+        public float TaxRate { get; set; }
         public float Health { get; set; }
         public float Efficiency
         {

@@ -28,12 +28,6 @@ namespace City.Model.Global
             FuelRate = fuelRate;
         }
 
-        // Initialise the StockExchange
-        public void StockExchangeInitialize()
-        {
-
-        }
-
         // Available
         public float FoodAvailable { get; set; }
         public float WaterAvailable { get; set; }

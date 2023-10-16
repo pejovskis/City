@@ -12,10 +12,8 @@ namespace City.Model.Building
             string Description, 
             int WorkerCapacity, 
             float PriceBuy, 
-            float BankruptTolerance, 
-            float TaxRate,
-            float IncomeBase,
-            float OutcomeBase)
+            float BankruptTolerance,
+            float TaxRate)
 
             : base(Id, 
                   Name, 
@@ -23,10 +21,8 @@ namespace City.Model.Building
                   Description, 
                   WorkerCapacity, 
                   PriceBuy, 
-                  BankruptTolerance, 
-                  TaxRate,
-                  IncomeBase,
-                  OutcomeBase)
+                  BankruptTolerance,
+                  TaxRate)
         {
             
         }

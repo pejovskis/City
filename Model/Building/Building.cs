@@ -19,7 +19,7 @@ namespace City.Model.Building
         public bool IsBankrupt { get; private set; } = false;
 
         // Stats
-        public int Level { get; private set; } = 1;
+        public int Level { get; set; } = 1;
 
         public int Size { get; set; }
 
@@ -81,16 +81,20 @@ namespace City.Model.Building
         }
 
         // Salary
+        private float _salaryMonthlyBacking;
+
         public float SalaryMonhtly
         {
-
             get
             {
-                int Narrower = 400;
-
-                return (WorkersEmployed * Quality * Efficiency * Level) / Narrower;
+                return (_salaryMonthlyBacking * WorkersEmployed * Quality * Level) / 100;
+            }
+            set
+            {
+                _salaryMonthlyBacking = value;
             }
         }
+
         // Costs
         public float CostsElectricity { 
             get
@@ -121,6 +125,7 @@ namespace City.Model.Building
             {
                 return ProductionItemQuantity * ProductionPiecePrice;
             }
+            set { }
         }
         public float NettoIncome
         {
@@ -157,7 +162,8 @@ namespace City.Model.Building
             string description,
             int workerCapacity,
             float priceToBuy,
-            float bankruptTolerance
+            float bankruptTolerance,
+            float taxRate
         )
         {
             // Manual Constructor
@@ -166,9 +172,10 @@ namespace City.Model.Building
             Quality = quality;
             Description = description;
             WorkerCapacity = workerCapacity;
-            WorkersEmployed = WorkerCapacity;  // Assuming this should always match initially
+            WorkersEmployed = workerCapacity;  // Assuming this should always match initially
             PriceToBuy = priceToBuy;
             BankruptTolerance = bankruptTolerance;
+            TaxRate = taxRate;
         }
 
 
