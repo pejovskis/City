@@ -3,9 +3,10 @@
 ## Upcoming:
 - Unit Health decrement with the time passed
 - Bankrupt true IF Object income is lower than the expenses for X amount of time After that it sets the Owner to the default city for sale and until then is in Maintenance Mode;
+- WorldStockExchange Random Events (drops, increases calculated with keys like: 1-100 drop 0.1 and exactly 550 drop 3 in fuel or similar)
 
 ## ToDO
-- WorldStockExchange Random Events (drops, increases calculated with keys like: 1-100 drop 0.1 and exactly 550 drop 3 in fuel or similar)
+- 
 - 
 
 ## Calculations needed for:
@@ -34,6 +35,8 @@
 - Function write to end the Maintenance Mode after the repair
 - Function write and GET update that sets the bankrupt true IF Object income is lower than the expenses for X amount of time.
 - Field check TaxToPay if false set it to StockExchange tax var
+- New World Stock Exchange created 
+- Front End Structure Stats Overview
 
 ## Class Unit
 - Mother of Models
