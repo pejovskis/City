@@ -355,7 +355,6 @@
             // inSalaryMonthly
             // 
             inSalaryMonthly.Location = new Point(170, 501);
-            inSalaryMonthly.Maximum = new decimal(new int[] { 1215752191, 23, 0, 0 });
             inSalaryMonthly.Name = "inSalaryMonthly";
             inSalaryMonthly.Size = new Size(120, 23);
             inSalaryMonthly.TabIndex = 74;
