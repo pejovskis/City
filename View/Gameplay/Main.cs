@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using City.Controller;
 using City.Model.Building;
 using City.Model.Global;
 using City.Model.Robot;
@@ -16,6 +17,7 @@ namespace City.View.Gameplay
     public partial class Main : Form
     {
         private Building[] buildings;
+        private StockExchange worldStockExchange;
         private StockExchange stockExchange;
         private Population population;
         private Ressources ressources;
@@ -24,25 +26,31 @@ namespace City.View.Gameplay
         public Main()
         {
             InitializeComponent();
+            InitializeUnits();
+            InitializeButtons();
+            InitializeStatsPanel();
+        }
+
+        private void InitializeUnits()
+        {
             InitalizeStockExchange();
             InitializeBuildings();
             InitializePopulation();
             InitializeRessources();
-            InitializeButtons();
-            MessageBox.Show("kurac", ressources.ToString());
         }
 
         private void InitalizeStockExchange()
         {
+            worldStockExchange = new StockExchange(0.19f, 30f, 18f, 35f, 20f);
             stockExchange = new StockExchange(0.19f, 30f, 18f, 35f, 20f);
         }
 
-        private void InitializePopulation() 
+        private void InitializePopulation()
         {
-            population = new Population(1.4f, 1.5f, 1.3f, 1.6f, 1.9f);
+            population = new Population(100, 1.4f, 1.5f, 1.3f, 1.6f, 1.9f);
         }
 
-        private void InitializeRessources() 
+        private void InitializeRessources()
         {
             ressources = new Ressources(buildings, population);
         }
@@ -62,7 +70,8 @@ namespace City.View.Gameplay
         private void InitializeButtons()
         {
             btnCityHall.Click += (sender, e) => DisplayStats(buildings[0]); // Display stats for the first building
-            btnBank.Click += (sender, e) => DisplayStats(buildings[1]); // Display stats for the second building
+            btnBank.Click += (sender, e) => DisplayStats(buildings[1]);
+            btnGasStation.Click += (sender, e) => DisplayStats(buildings[2]);
         }
 
         private void DisplayStats(Building building)
@@ -71,7 +80,17 @@ namespace City.View.Gameplay
             buildingStatus.Show();
         }
 
+        private void InitializeStatsPanel()
+        {
+            MainController.InitializeStatsPanel(lbPopulationStats, lbRessourcesStats, lbStockExchangeStats, population, ressources, stockExchange, worldStockExchange);
+        }
+
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void listBoxNotifications_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

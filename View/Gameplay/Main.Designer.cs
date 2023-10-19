@@ -31,10 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             panel1 = new Panel();
             btnCityHall = new Button();
-            button23 = new Button();
+            btnGasStation = new Button();
             btnBank = new Button();
             button21 = new Button();
-            listBoxNotifications = new ListBox();
+            lbPopulationStats = new ListBox();
             button20 = new Button();
             button19 = new Button();
             button18 = new Button();
@@ -55,6 +55,8 @@
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
+            lbRessourcesStats = new ListBox();
+            lbStockExchangeStats = new ListBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -62,11 +64,13 @@
             // 
             panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
+            panel1.Controls.Add(lbStockExchangeStats);
+            panel1.Controls.Add(lbRessourcesStats);
             panel1.Controls.Add(btnCityHall);
-            panel1.Controls.Add(button23);
+            panel1.Controls.Add(btnGasStation);
             panel1.Controls.Add(btnBank);
             panel1.Controls.Add(button21);
-            panel1.Controls.Add(listBoxNotifications);
+            panel1.Controls.Add(lbPopulationStats);
             panel1.Controls.Add(button20);
             panel1.Controls.Add(button19);
             panel1.Controls.Add(button18);
@@ -102,14 +106,14 @@
             btnCityHall.Text = "CityHall";
             btnCityHall.UseVisualStyleBackColor = true;
             // 
-            // button23
+            // btnGasStation
             // 
-            button23.Location = new Point(467, 43);
-            button23.Name = "button23";
-            button23.Size = new Size(110, 36);
-            button23.TabIndex = 23;
-            button23.Text = "Gas Station";
-            button23.UseVisualStyleBackColor = true;
+            btnGasStation.Location = new Point(467, 43);
+            btnGasStation.Name = "btnGasStation";
+            btnGasStation.Size = new Size(110, 36);
+            btnGasStation.TabIndex = 23;
+            btnGasStation.Text = "Gas Station";
+            btnGasStation.UseVisualStyleBackColor = true;
             // 
             // btnBank
             // 
@@ -130,15 +134,16 @@
             button21.Text = "-";
             button21.UseVisualStyleBackColor = true;
             // 
-            // listBoxNotifications
+            // lbPopulationStats
             // 
-            listBoxNotifications.BackColor = Color.FromArgb(224, 224, 224);
-            listBoxNotifications.FormattingEnabled = true;
-            listBoxNotifications.ItemHeight = 15;
-            listBoxNotifications.Location = new Point(13, 638);
-            listBoxNotifications.Name = "listBoxNotifications";
-            listBoxNotifications.Size = new Size(894, 139);
-            listBoxNotifications.TabIndex = 20;
+            lbPopulationStats.BackColor = Color.FromArgb(224, 224, 224);
+            lbPopulationStats.FormattingEnabled = true;
+            lbPopulationStats.ItemHeight = 15;
+            lbPopulationStats.Location = new Point(13, 638);
+            lbPopulationStats.Name = "lbPopulationStats";
+            lbPopulationStats.Size = new Size(280, 139);
+            lbPopulationStats.TabIndex = 20;
+            lbPopulationStats.SelectedIndexChanged += listBoxNotifications_SelectedIndexChanged;
             // 
             // button20
             // 
@@ -321,6 +326,26 @@
             button1.Text = "Park";
             button1.UseVisualStyleBackColor = false;
             // 
+            // lbRessourcesStats
+            // 
+            lbRessourcesStats.BackColor = Color.FromArgb(224, 224, 224);
+            lbRessourcesStats.FormattingEnabled = true;
+            lbRessourcesStats.ItemHeight = 15;
+            lbRessourcesStats.Location = new Point(299, 638);
+            lbRessourcesStats.Name = "lbRessourcesStats";
+            lbRessourcesStats.Size = new Size(280, 139);
+            lbRessourcesStats.TabIndex = 25;
+            // 
+            // lbStockExchangeStats
+            // 
+            lbStockExchangeStats.BackColor = Color.FromArgb(224, 224, 224);
+            lbStockExchangeStats.FormattingEnabled = true;
+            lbStockExchangeStats.ItemHeight = 15;
+            lbStockExchangeStats.Location = new Point(585, 638);
+            lbStockExchangeStats.Name = "lbStockExchangeStats";
+            lbStockExchangeStats.Size = new Size(280, 139);
+            lbStockExchangeStats.TabIndex = 26;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -355,11 +380,13 @@
         private Button button16;
         private Button button15;
         private Button button14;
-        private ListBox listBoxNotifications;
+        private ListBox lbPopulationStats;
         private Button button20;
         private Button button21;
         private Button btnCityHall;
-        private Button button23;
+        private Button btnGasStation;
         private Button btnBank;
+        private ListBox lbStockExchangeStats;
+        private ListBox lbRessourcesStats;
     }
 }

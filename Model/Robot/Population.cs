@@ -117,6 +117,7 @@ namespace City.Model.Robot
         public float FuelRate {  get; set; }
 
         public Population(
+            int size,
             float hungerRate,
             float thirstRate,
             float educationRate,
@@ -124,6 +125,7 @@ namespace City.Model.Robot
             float fuelRate
             )
         {
+            Size = size;
             HungerRate = hungerRate;
             ThirstRate = thirstRate;
             EducationRate = educationRate;

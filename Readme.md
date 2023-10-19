@@ -5,6 +5,8 @@
 - Bankrupt true IF Object income is lower than the expenses for X amount of time After that it sets the Owner to the default city for sale and until then is in Maintenance Mode;
 
 ## ToDO
+- WorldStockExchange Random Events (drops, increases calculated with keys like: 1-100 drop 0.1 and exactly 550 drop 3 in fuel or similar)
+- 
 
 ## Calculations needed for:
 - Building Field create ProductQuantityMax; get = Calculate the possible units of production, Calculated from efficiency, max workers, size and quality - per second; set;
