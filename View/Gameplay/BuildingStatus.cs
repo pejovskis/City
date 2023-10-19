@@ -66,7 +66,6 @@ namespace City.View.Gameplay
             lblPriceToUpgrade.Text = "Price to upgrade: " + building.PriceToUpgrade.ToString();
             lblPriceRepair.Text = "Price to repair: " + building.PriceToRepair.ToString();
             lblPricePromote.Text = "Price to promote: " + building.PriceToPromote.ToString();
-            lblPriceSell.Text = "Price to sell: " + building.PriceToSell.ToString();
             lblTaxPay.Text = "Tax to pay: " + building.TaxRate.ToString();
             lblBruttoInCome.Text = "Brutto income: " + building.BruttoIncome.ToString();
             lblNettoInCome.Text = "Netto income: " + building.NettoIncome.ToString();

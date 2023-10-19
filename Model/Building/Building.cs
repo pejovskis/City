@@ -1,5 +1,6 @@
 ﻿using System;
 using City.Model.Global;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace City.Model.Building
 {
@@ -15,21 +16,70 @@ namespace City.Model.Building
             get; 
             set; } = 0;  // Default 0. 0 = City
         public bool Sold { get; set; } = false;
-        public bool InMaintenance { get; private set; } = false;
-        public bool IsBankrupt { get; private set; } = false;
+        public bool _inMaintenance = false;
+        public bool InMaintenance { 
+            get
+            {
+                if(Health < 50 || IsBankrupt)
+                {
+                    return true;
+                }
+                return _inMaintenance;
+            } 
+            set
+            {
+                _inMaintenance = value;
+            }
+        }
+        public bool IsBankrupt { 
+            get
+            {
+                if(BruttoIncome < Expenses)
+                {
+                    return true;
+                }
+                return false;
+            } 
+        }
+        public string ProductName { get; set; }
 
         // Stats
         public int Level { get; set; } = 1;
+        public int _size;
 
-        public int Size { get; set; }
+        public int Size { 
+            get
+            {
+                if(Level > 1)
+                {
+                    Size *= Level;
+                }
+                return _size;
+            } 
+            set { _size = value; }
+        }
 
-        public int WorkerCapacity { get; set; }
+        public int _workerCapacity;
+        public int WorkerCapacity { 
+            get
+            {
+                if(Level > 1)
+                {
+                    return (int)Math.Floor(Size / Quality);
+                }
+                return _workerCapacity;
+            }
+        }
         public int WorkersEmployed { get; set; }
         public float Efficiency
         {
             get
             {
                 return base.Efficiency -= (WorkersEmployed / WorkerCapacity * 100);
+            }
+            set
+            {
+                base.Efficiency = value;
             }
         }
         public float TimeToRepair
@@ -46,10 +96,40 @@ namespace City.Model.Building
                 return Size * (int)Quality * Level;
             }
         }
-        public int TimeLastingPromotion { get; set; }
+        public int TimeLastingPromotion { 
+            get
+            {
+                return (int)(Level * Size * Quality);
+            }  
+            set
+            {
+
+            }
+        }
+        public bool IsPromoted { get; set; } = false;
 
         // Price
-        public float PriceToBuy { get; set; }
+        public float _priceToBuy;
+        public float PriceToBuy { 
+            get
+            {
+                if(Owner != 0)
+                {
+                    if(Health < 100)
+                    {
+                        return _priceToBuy - (100 - Health) * _priceToBuy / 100;
+                    }
+                    
+                }
+
+                return _priceToBuy;
+                
+            } 
+            set
+            {
+                
+            }
+        }
 
         public float BankruptTolerance { get; set; }
         public float PriceToUpgrade { 
@@ -71,14 +151,6 @@ namespace City.Model.Building
                 return Size + Quality * Level ;
             }
         }
-        public float PriceToSell
-        {
-            get
-            {
-
-                return PriceToBuy + Size + Quality * Level;
-            }
-        }
 
         // Salary
         private float _salaryMonthlyBacking;
@@ -97,34 +169,35 @@ namespace City.Model.Building
         }
 
         // Costs
-        public float CostsElectricity { 
+        public int EctricityNeeded { 
             get
             {
-                return Size * Quality * Level / Efficiency;
+                return (int)(Size * Quality * Level / Efficiency);
             }
         }
-        public float CostsWater {
+        public int WaterNeeded {
             get
             {
-                return Size * Quality * Level / Efficiency;
+                return (int)(Size * Quality * Level / Efficiency);
             }
         }
 
         // Production
-        public float ProductionItemQuantity
+        public float ProductQuantityMax
         {
             get
             {
-                return Efficiency * Size * Quality;
+                return Efficiency * Size * Quality * WorkerCapacity;
             }
         }
-
-        public float ProductionPiecePrice { get; set; }
+        public float ProductQuantityRate { get; set; }
+        public int ProductQuantity { get; set; }
+        public float ProductBruttoPrice { get; set; }
         public float BruttoIncome
         {
             get
             {
-                return ProductionItemQuantity * ProductionPiecePrice;
+                return ProductQuantity * ProductBruttoPrice;
             }
             set { }
         }
@@ -139,7 +212,7 @@ namespace City.Model.Building
         {
             get
             {
-                return SalaryMonhtly + CostsElectricity + CostsWater;
+                return SalaryMonhtly + EctricityNeeded + WaterNeeded;
             }
         }
         public float NettoWin
@@ -160,8 +233,9 @@ namespace City.Model.Building
             int id,
             string name,
             float quality,
+            int size,
             string description,
-            int workerCapacity,
+            int _workerCapacity,
             float priceToBuy,
             float bankruptTolerance,
             float taxRate
@@ -171,9 +245,10 @@ namespace City.Model.Building
             Id = id;
             Name = name;
             Quality = quality;
+            Size = size;
             Description = description;
-            WorkerCapacity = workerCapacity;
-            WorkersEmployed = workerCapacity;  // Assuming this should always match initially
+            this._workerCapacity = _workerCapacity;
+            WorkersEmployed = WorkerCapacity;  // Assuming this should always match initially
             PriceToBuy = priceToBuy;
             BankruptTolerance = bankruptTolerance;
             TaxRate = taxRate;
@@ -181,6 +256,29 @@ namespace City.Model.Building
 
 
         // Interactions
+        public void StartPromotion()
+        {
+            Efficiency = 100;
+        }
+
+        public void EndPromotion()
+        {
+
+        }
+
+        public void StartRepair()
+        {
+            _inMaintenance = true;
+            // Wait (TimeToRepair); add in server logic
+            EndRepair();
+        }
+
+        public void EndRepair()
+        {
+            _inMaintenance = false;
+            SetHealthMax();
+        }
+
         public void UpgradeLevel()
         {
             this.Level++;
@@ -204,6 +302,11 @@ namespace City.Model.Building
             {
                 WorkersEmployed--;
             }
+        }
+
+        public void SetHealthMax()
+        {
+            Health = 100;
         }
 
     }

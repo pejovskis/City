@@ -9,29 +9,54 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using City.Model.Building;
 using City.Model.Global;
+using City.Model.Robot;
 
 namespace City.View.Gameplay
 {
     public partial class Main : Form
     {
-        private Building[] buildings; // Assuming you have an array of buildings
+        private Building[] buildings;
+        private StockExchange stockExchange;
+        private Population population;
+        private Ressources ressources;
 
         // Constructor
         public Main()
         {
             InitializeComponent();
+            InitalizeStockExchange();
             InitializeBuildings();
+            InitializePopulation();
+            InitializeRessources();
             InitializeButtons();
+            MessageBox.Show("kurac", ressources.ToString());
+        }
+
+        private void InitalizeStockExchange()
+        {
+            stockExchange = new StockExchange(0.19f, 30f, 18f, 35f, 20f);
+        }
+
+        private void InitializePopulation() 
+        {
+            population = new Population(1.4f, 1.5f, 1.3f, 1.6f, 1.9f);
+        }
+
+        private void InitializeRessources() 
+        {
+            ressources = new Ressources(buildings, population);
         }
 
         private void InitializeBuildings()
         {
-            StockExchange StockExchange = new StockExchange(0.19f, 30f, 18f, 35f, 20f);
+
             buildings = new Building[]
             {
-                new CityHall(0, "City Hall", 100, "Hearth of the city", 50, 10000000, 60, StockExchange.TaxRate),
-                new Bank(1, "City Bank", 95, "Bank of the bros", 50, 1000000, 40, StockExchange.TaxRate),
+                new CityHall(0, "City Hall", 100, 58, "Hearth of the city", 50, 10000000, 60, stockExchange.TaxRate),
+                new Bank(1, "City Bank", 95, 60, "Bank of the bros", 50, 1000000, 40, stockExchange.TaxRate),
+                new GasStation(2, "Gas Station", 85, 50,"Fuel for the bros", 50, 750000, 10, stockExchange.TaxRate)
             };
+
         }
 
         private void InitializeButtons()

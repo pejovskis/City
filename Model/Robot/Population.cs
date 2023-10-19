@@ -25,11 +25,10 @@ namespace City.Model.Robot
                 return base.Efficiency - (Happiness < 100 ? (100 - Happiness) : 0);
             }
         }
-        public Building.Building Building { get; set; }
         public float BruttoIncome {
             get
             {
-                return Building.SalarayPay();
+                return 0;
             }
         }
         public float NettoIncome { 
@@ -38,6 +37,8 @@ namespace City.Model.Robot
                 return BruttoIncome - TaxRate;
             } 
         }
+        public int Size { get; set; }
+
 
         // Costs
         public float Expenses { 
@@ -55,18 +56,64 @@ namespace City.Model.Robot
                 return Hunger + Thirst + Education + Health + SocialLife + ForbbidenThings / 6;
             }
         } 
-        public float Hunger { get; set; } 
+        public int Hunger { 
+            get
+            {
+                return (int)(Size * HungerRate);
+            }
+            set { Hunger = value; }
+        } 
         public float HungerRate { get; set; } // use it in the calculation for food needs. Higer = more costs
-        public float Thirst {  get; set; } 
+        public int Thirst {  
+            get
+            {
+                return (int)(Size * ThirstRate);
+            }
+            set 
+            {
+                Thirst = value;
+            } 
+        } 
         public float ThirstRate { get; set; } // use it in the calculation for thirst needs. Higer = more costs
-        public float Education { get; set; } // 0 - Born
+        public int Education { 
+            get
+            {
+                return (int)(Size * EducationRate);
+            }
+            set
+            {
+                Size = value;
+            }
+        } // 0 - Born
         public float EducationRate { get; set; } // use it in the calculation for education needs. Higer = less costs
-        public float HealthRate { get; set; } // use it in the calculation for health needs. Higer = more costs
-        public float SocialLife { get; set; } // // use it in the calculation for Social Life needs. Higer = more costs, but also happiness.
+        public int Health { 
+            get
+            {
+                return (int)(Size * HealthRate);
+            } 
+            set
+            {
+                Health = value;
+            }
+        } // use it in the calculation for health needs. Higer = more costs
+        public float HealthRate { 
+            get; 
+            set; 
+        } // use it in the calculation for health needs. Higer = more costs
+        public int SocialLife { get; set; } // // use it in the calculation for Social Life needs. Higer = more costs, but also happiness.
         public float SocialLifeRate { get;set; }
-        public float ForbbidenThings { get; set; }
+        public int ForbbidenThings { get; set; }
         public float ForbbidenThingsRate { get; set; } // use it in the calculation for the forbiddenThings. Higher = happier, but also higher healrth Rate
-        public float FuelAvailable { get; set; }
+        public int Fuel {  
+            get
+            {
+                return (int)(Size * FuelRate);
+            }
+            set
+            {
+                Fuel = value;
+            }
+        }
         public float FuelRate {  get; set; }
 
         public Population(
@@ -83,14 +130,6 @@ namespace City.Model.Robot
             SocialLifeRate = socialLifeRate;
             FuelRate = fuelRate;
         }
-
-
-
-
-
-
-
-
 
 
     }

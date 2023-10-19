@@ -39,7 +39,6 @@ namespace City
             lblPriceToUpgrade.Text += CityHall.PriceToUpgrade + " => ";
             lblPriceRepair.Text += CityHall.PriceToRepair + " => ";
             lblPricePromote.Text += CityHall.PriceToPromote + " => ";
-            lblPriceSell.Text += CityHall.PriceToSell + " => ";
             lblTaxPay.Text += CityHall.TaxRate + " => ";
             lblBruttoInCome.Text += CityHall.BruttoIncome + " => ";
             lblNettoInCome.Text += CityHall.NettoIncome + " => ";

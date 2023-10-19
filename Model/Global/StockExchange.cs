@@ -28,23 +28,5 @@ namespace City.Model.Global
             FuelRate = fuelRate;
         }
 
-        // Available
-        public float FoodAvailable { get; set; }
-        public float WaterAvailable { get; set; }
-        public float ElectricityAvailable { get; set; }
-        public float FuelAvailable { get; set; }
-        public float EducationAvailable { get; set; }
-        public float CultureAvailable { get; set; } // ToDo
-        public float EmploymentAvailable { get; set; }
-
-
-        // Needed
-        public float FoodNeeded { get; set; }
-        public float WaterNeeded { get; set; }
-        public float ElectricityNeeded { get; set; }
-        public float FuelNeeded { get; set; }
-        public float EducationNeeded { get; set; }
-        public float CultureNeeded { get; set; } // ToDo
-        public float EmploymentNeeded { get; set; }
     }
 }
