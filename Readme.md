@@ -1,8 +1,10 @@
 # City Game
 
+## Upcoming:
+- Unit Health decrement with the time passed
+
 ## ToDO
-- Upcoming: Unit Health decrement with the time passed
-- Maintenance set true IF object under 50% health || Repairing ||Hit Bancrupt Tolerance
+- Maintenance set true IF object under 50% health || Repairing || Hit Bancrupt Tolerance
 - Function write that repairs the object
 - Function write that calculates the repair time
 - Function write/check that calculates the repair cost
@@ -14,7 +16,7 @@
 - Function GET write that Calculates the Efficiency of a Building
 - Function GET write that Calculates the Time needed to Upgrade
 - Function GET write that Calculates the Time needed to Repair
-- - Function GET write that Calculates the Price to Upgrade
+- Function GET write that Calculates the Price to Upgrade
 - Function GET write that Calculates the Price to Repair
 - Function GET write that Calculates the Promotion Price
 - Field remove PriceToSell, it's the same as PriceToBuy
@@ -23,11 +25,13 @@
 - NEW Field create TimeLastingPromotion := bool; get = boost efficiency; set;
 - Field check TaxToPay if false set it to StockExchange tax var
 
-- In context to create a new class RessourceProduct, that contains all info over the product.
 - Building Field create RessourceProduct;
+
+## Done Updates. ToCalculate:
 - Building Field create ProductQuantityMax; get = Calculate the possible units of production, Calculated from efficiency, max workers, size and quality - per second; set;
 - Building Field create ProductQuantityRate; get = Calculate the actual quantity in Procent Depending on efficiency; set;  
-- Building Field create ProductQuantity; get = Calculate result from ProductQuantityRate% * ProductQuantityMax; 
+- Building Field create ProductQuantity; get = Calculate result from ProductQuantityRate% * ProductQuantityMax;
+- Building Field create ProductBruttoPrice; get; set;
 
 ## Class Unit
 - Mother of Models
