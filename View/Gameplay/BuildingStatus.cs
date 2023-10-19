@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using City.Controller;
+using City.Controller.BuildingController;
 using City.Model.Building;
 using City.Model.Global;
 
@@ -17,6 +18,7 @@ namespace City.View.Gameplay
     {
 
         private Building Building;
+        //private List<Label> labels;
 
         // Constructor
         public BuildingStatus(Building building)
@@ -24,6 +26,19 @@ namespace City.View.Gameplay
             InitializeComponent();
             this.Building = building;
             DisplayStats(building);
+
+            // Labels Init
+            //this.labels = new List<Label>();
+
+            // Auto labels add
+            //foreach (Control c in this.Controls)
+            //{
+            //    if (c is Label)
+            //    {
+            //        labels.Add((Label)c);
+            //    }
+            //}
+
         }
 
         private void DisplayStats(Building building)
@@ -40,7 +55,7 @@ namespace City.View.Gameplay
             lblLevel.Text = "Level: " + building.Level.ToString();
             lblSize.Text = "Size: " + building.Size.ToString();
             lblWorkerCapacity.Text = "Capacity: " + building.WorkerCapacity.ToString();
-            lblWorkersEmployed.Text = "Workers employed: ";
+            lblWorkersEmployed.Text = "Workers employed: " + building.WorkersEmployed.ToString();
             inWorkersEmployed.Value = building.WorkersEmployed;
             lblHealth.Text = "Heatlh: " + building.Health.ToString();
             lblEfficiency.Text = "Efficiency: " + building.Efficiency.ToString();
@@ -66,25 +81,12 @@ namespace City.View.Gameplay
 
         private void inWorkersEmployed_ValueChanged(object sender, EventArgs e)
         {
-            int InputWorkers = Convert.ToInt32(inWorkersEmployed.Value);
-
-            if (InputWorkers <= Building.WorkerCapacity && InputWorkers >= 0)
-            {
-                Building.WorkersEmployed = InputWorkers;
-            }
+            BuildingStatusController.WorkersEmployedChange(Building, inWorkersEmployed, lblWorkersEmployed);
         }
 
         private void inSalaryMonthly_ValueChanged(object sender, EventArgs e)
         {
-            int InputSalary = Convert.ToInt32(inSalaryMonthly.Value);
-
-            if (InputSalary > 0)
-            {
-                Building.SalaryMonhtly = InputSalary;
-            }
-
-            lblSalaryMonthly.Text = "Monthly Salary: " + Building.SalaryMonhtly;
-
+            BuildingStatusController.SalaryMonthlyChange(Building, inSalaryMonthly, lblSalaryMonthly);
         }
     }
 

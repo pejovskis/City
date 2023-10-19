@@ -87,7 +87,8 @@ namespace City.Model.Building
         {
             get
             {
-                return (_salaryMonthlyBacking * WorkersEmployed * Quality * Level) / 100;
+                //return (_salaryMonthlyBacking * WorkersEmployed * Quality * Level) / 100;
+                return _salaryMonthlyBacking;
             }
             set
             {
