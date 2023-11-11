@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,13 +32,64 @@ namespace City.View.Gameplay
             InitializeStatsPanel();
         }
 
+        private System.Windows.Forms.Timer timer1;
+
         private void InitializeUnits()
         {
             InitalizeStockExchange();
             InitializeBuildings();
             InitializePopulation();
             InitializeRessources();
+            InitializeTime();
+            //Start the Timer
+            timerStart(timer1);
         }
+
+        public void timerStart(System.Windows.Forms.Timer timer1)
+        {
+            timer1 = new System.Windows.Forms.Timer();
+            timer1.Interval = 1000; // Set the interval to 1000 milliseconds
+            timer1.Tick += new EventHandler(Timer1_Tick); // Attach the Tick event handler
+            timer1.Start(); // Start the timer
+        }
+
+        private void InitializeTime()
+        {
+            MainController.StartGame();
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            GetGameTime(); // Call your ShowTime method
+            GameCurrentStatusUpdate();
+            InitializeStatsPanel();
+        }
+
+        private void GameCurrentStatusUpdate()
+        {
+            population.Size++;
+            if(GetGameTimeStr() == "00:00:05")
+            {
+                MessageBox.Show("FUCK YOU", population.Size.ToString());
+            }
+        }
+
+        private void GetGameTime()
+        {
+            lblTime.Text = GetGameTimeStr();
+        }
+
+        private string GetGameTimeStr()
+        {
+            // Get the elapsed time as a TimeSpan value
+            TimeSpan ts = MainController.gameTimeDuration.Elapsed;
+
+            // Format and display the TimeSpan value
+            // Example: "Hours:Minutes:Seconds.Milliseconds"
+            return String.Format("{0:00}:{1:00}:{2:00}",
+                                         ts.Hours, ts.Minutes, ts.Seconds);
+        }
+
 
         private void InitalizeStockExchange()
         {
@@ -91,6 +143,11 @@ namespace City.View.Gameplay
         }
 
         private void listBoxNotifications_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbStockExchangeStats_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

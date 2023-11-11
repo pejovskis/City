@@ -30,6 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             panel1 = new Panel();
+            lblTime = new Label();
+            lbStockExchangeStats = new ListBox();
+            lbRessourcesStats = new ListBox();
             btnCityHall = new Button();
             btnGasStation = new Button();
             btnBank = new Button();
@@ -55,8 +58,6 @@
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
-            lbRessourcesStats = new ListBox();
-            lbStockExchangeStats = new ListBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -64,6 +65,7 @@
             // 
             panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
+            panel1.Controls.Add(lblTime);
             panel1.Controls.Add(lbStockExchangeStats);
             panel1.Controls.Add(lbRessourcesStats);
             panel1.Controls.Add(btnCityHall);
@@ -96,6 +98,37 @@
             panel1.Size = new Size(1225, 789);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
+            // 
+            // lblTime
+            // 
+            lblTime.AutoSize = true;
+            lblTime.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTime.Location = new Point(1144, 17);
+            lblTime.Name = "lblTime";
+            lblTime.Size = new Size(55, 28);
+            lblTime.TabIndex = 27;
+            lblTime.Text = "TIME";
+            // 
+            // lbStockExchangeStats
+            // 
+            lbStockExchangeStats.BackColor = Color.FromArgb(224, 224, 224);
+            lbStockExchangeStats.FormattingEnabled = true;
+            lbStockExchangeStats.ItemHeight = 15;
+            lbStockExchangeStats.Location = new Point(585, 638);
+            lbStockExchangeStats.Name = "lbStockExchangeStats";
+            lbStockExchangeStats.Size = new Size(280, 139);
+            lbStockExchangeStats.TabIndex = 26;
+            lbStockExchangeStats.SelectedIndexChanged += lbStockExchangeStats_SelectedIndexChanged;
+            // 
+            // lbRessourcesStats
+            // 
+            lbRessourcesStats.BackColor = Color.FromArgb(224, 224, 224);
+            lbRessourcesStats.FormattingEnabled = true;
+            lbRessourcesStats.ItemHeight = 15;
+            lbRessourcesStats.Location = new Point(299, 638);
+            lbRessourcesStats.Name = "lbRessourcesStats";
+            lbRessourcesStats.Size = new Size(280, 139);
+            lbRessourcesStats.TabIndex = 25;
             // 
             // btnCityHall
             // 
@@ -326,26 +359,6 @@
             button1.Text = "Park";
             button1.UseVisualStyleBackColor = false;
             // 
-            // lbRessourcesStats
-            // 
-            lbRessourcesStats.BackColor = Color.FromArgb(224, 224, 224);
-            lbRessourcesStats.FormattingEnabled = true;
-            lbRessourcesStats.ItemHeight = 15;
-            lbRessourcesStats.Location = new Point(299, 638);
-            lbRessourcesStats.Name = "lbRessourcesStats";
-            lbRessourcesStats.Size = new Size(280, 139);
-            lbRessourcesStats.TabIndex = 25;
-            // 
-            // lbStockExchangeStats
-            // 
-            lbStockExchangeStats.BackColor = Color.FromArgb(224, 224, 224);
-            lbStockExchangeStats.FormattingEnabled = true;
-            lbStockExchangeStats.ItemHeight = 15;
-            lbStockExchangeStats.Location = new Point(585, 638);
-            lbStockExchangeStats.Name = "lbStockExchangeStats";
-            lbStockExchangeStats.Size = new Size(280, 139);
-            lbStockExchangeStats.TabIndex = 26;
-            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -355,6 +368,7 @@
             Name = "Main";
             Text = "Main";
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -388,5 +402,6 @@
         private Button btnBank;
         private ListBox lbStockExchangeStats;
         private ListBox lbRessourcesStats;
+        private Label lblTime;
     }
 }

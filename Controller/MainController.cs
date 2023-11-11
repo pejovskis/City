@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,7 +52,7 @@ namespace City.Controller
             lbRessourcesStats.Items.Add("CultureAvailable: " + ressources.CultureAvailable);
             lbRessourcesStats.Items.Add("EmploymentNeeded: " + ressources.EmploymentNeeded);
             lbRessourcesStats.Items.Add("EmploymentAvailable: " + ressources.EmploymentAvailable);
-            
+
 
             lbStockExchangeStats.Items.Add("*************** City Stock Exchange ****************");
             lbStockExchangeStats.Items.Add("TaxRate: " + stockExchange.TaxRate);
@@ -65,7 +66,23 @@ namespace City.Controller
             lbStockExchangeStats.Items.Add("WaterRate: " + worldStockExchange.WaterRate);
             lbStockExchangeStats.Items.Add("ElectricityRate: " + worldStockExchange.ElectricityRate);
             lbStockExchangeStats.Items.Add("FuelRate: " + worldStockExchange.FuelRate);
-
         }
+
+        // Game Stats Fields
+        public static Stopwatch gameTimeDuration = new Stopwatch();
+
+        public static void StartGame()
+        {
+            StartStopwatch();
+        }
+
+        // At begginnig of game
+        public static void StartStopwatch()
+        {
+            gameTimeDuration.Start();
+        }           
+
     }
-}
+
+}   
+
