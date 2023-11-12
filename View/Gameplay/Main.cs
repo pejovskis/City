@@ -61,10 +61,14 @@ namespace City.View.Gameplay
         private void Timer1_Tick(object sender, EventArgs e)
         {
             GetGameTime(); // Call your ShowTime method
-            GameCurrentStatusUpdate();
-            InitializeStatsPanel();
+
+            CityHall cityHall = (CityHall) buildings[0];
+            cityHall.TaxIncrease();
+
+            // GameCurrentStatusUpdate(); // TEST FUNCTION EXAMPLE
         }
 
+        /* TEST FUNCTION EXAMPLE
         private void GameCurrentStatusUpdate()
         {
             population.Size++;
@@ -73,6 +77,7 @@ namespace City.View.Gameplay
                 MessageBox.Show("FUCK YOU", population.Size.ToString());
             }
         }
+        */
 
         private void GetGameTime()
         {

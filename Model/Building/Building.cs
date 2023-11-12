@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using City.Model.Global;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -154,7 +155,6 @@ namespace City.Model.Building
 
         // Salary
         private float _salaryMonthlyBacking;
-
         public float SalaryMonhtly
         {
             get

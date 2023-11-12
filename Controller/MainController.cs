@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using City.Model.Building;
+using City.Model.DataSource.MainStats;
 using City.Model.Global;
 using City.Model.Robot;
+using static City.Model.DataSource.MainStats.StockExchangeStat;
 
 namespace City.Controller
 {
@@ -14,59 +17,70 @@ namespace City.Controller
     {
         public static void InitializeStatsPanel(ListBox lbPopulationStats, ListBox lbRessourcesStats, ListBox lbStockExchangeStats, Population population, Ressources ressources, StockExchange stockExchange, StockExchange worldStockExchange)
         {
-            lbPopulationStats.Items.Clear();
-            lbPopulationStats.Items.Add("population.Size: " + population.Size);
-            lbPopulationStats.Items.Add("population.Happiness: " + population.Happiness);
-            lbPopulationStats.Items.Add("population.Hunger: " + population.Hunger);
-            lbPopulationStats.Items.Add("population.Thirst: " + population.Thirst);
-            lbPopulationStats.Items.Add("population.Education: " + population.Education);
-            lbPopulationStats.Items.Add("population.Budget: " + population.Budget);
-            lbPopulationStats.Items.Add("population.Efficiency: " + population.Efficiency);
-            lbPopulationStats.Items.Add("population.BruttoIncome: " + population.BruttoIncome);
-            lbPopulationStats.Items.Add("population.NettoIncome: " + population.NettoIncome);
-            lbPopulationStats.Items.Add("population.Expenses: " + population.Expenses);
-            lbPopulationStats.Items.Add("population.Health: " + population.Health);
-            lbPopulationStats.Items.Add("population.Fuel: " + population.Fuel);
-            lbPopulationStats.Items.Add("population.SocialLife: " + population.SocialLife);
-            lbPopulationStats.Items.Add("population.ForbbidenThings: " + population.ForbbidenThings);
-            lbPopulationStats.Items.Add("**********.Stat Rates: **********" + population.ForbbidenThings);
-            lbPopulationStats.Items.Add("population.HungerRate: " + population.HungerRate);
-            lbPopulationStats.Items.Add("population.ThirstRate: " + population.ThirstRate);
-            lbPopulationStats.Items.Add("population.EducationRate: " + population.EducationRate);
-            lbPopulationStats.Items.Add("population.HealthRate: " + population.HealthRate);
-            lbPopulationStats.Items.Add("population.FuelRate: " + population.FuelRate);
-            lbPopulationStats.Items.Add("population.SocialLifeRate: " + population.SocialLifeRate);
-            lbPopulationStats.Items.Add("population.ForbbidenThingsRate: " + population.ForbbidenThingsRate);
+            // Population Stats
+            BindingList<PopulationStat> populationStats = new BindingList<PopulationStat>();
+            populationStats.Add(new PopulationStat("Size", population.Size.ToString()));
+            populationStats.Add(new PopulationStat("Happiness", population.Happiness.ToString()));
+            populationStats.Add(new PopulationStat("Hunger", population.Hunger.ToString()));
+            populationStats.Add(new PopulationStat("Thirst", population.Thirst.ToString()));
+            populationStats.Add(new PopulationStat("Education", population.Education.ToString()));
+            populationStats.Add(new PopulationStat("Budget", population.Budget.ToString()));
+            populationStats.Add(new PopulationStat("Efficiency", population.Efficiency.ToString()));
+            populationStats.Add(new PopulationStat("Brutto Income", population.BruttoIncome.ToString()));
+            populationStats.Add(new PopulationStat("Netto Income", population.NettoIncome.ToString()));
+            populationStats.Add(new PopulationStat("Expenses", population.Expenses.ToString()));
+            populationStats.Add(new PopulationStat("Health", population.Health.ToString()));
+            populationStats.Add(new PopulationStat("Fuel", population.Fuel.ToString()));
+            populationStats.Add(new PopulationStat("Social Life", population.SocialLife.ToString()));
+            populationStats.Add(new PopulationStat("Forbidden Things", population.ForbbidenThings.ToString()));
+            populationStats.Add(new PopulationStat("********** Stat Rates **********", ""));
+            populationStats.Add(new PopulationStat("Hunger Rate", population.HungerRate.ToString()));
+            populationStats.Add(new PopulationStat("Thirst Rate", population.ThirstRate.ToString()));
+            populationStats.Add(new PopulationStat("Education Rate", population.EducationRate.ToString()));
+            populationStats.Add(new PopulationStat("Health Rate", population.HealthRate.ToString()));
+            populationStats.Add(new PopulationStat("Fuel Rate", population.FuelRate.ToString()));
+            populationStats.Add(new PopulationStat("Social Life Rate", population.SocialLifeRate.ToString()));
+            populationStats.Add(new PopulationStat("Forbidden Things Rate", population.ForbbidenThingsRate.ToString()));
 
-            lbRessourcesStats.Items.Add("FoodNeeded: " + ressources.FoodNeeded);
-            lbRessourcesStats.Items.Add("FoodAvailable: " + ressources.FoodAvailable);
-            lbRessourcesStats.Items.Add("WaterNeeded: " + ressources.WaterNeeded);
-            lbRessourcesStats.Items.Add("WaterAvailable: " + ressources.WaterAvailable);
-            lbRessourcesStats.Items.Add("ElectricityNeeded: " + ressources.ElectricityNeeded);
-            lbRessourcesStats.Items.Add("ElectricityAvailable: " + ressources.ElectricityAvailable);
-            lbRessourcesStats.Items.Add("FuelNeeded: " + ressources.FuelNeeded);
-            lbRessourcesStats.Items.Add("FuelAvailable: " + ressources.FuelAvailable);
-            lbRessourcesStats.Items.Add("EducationNeeded: " + ressources.EducationNeeded);
-            lbRessourcesStats.Items.Add("EducationAvailable: " + ressources.EducationAvailable);
-            lbRessourcesStats.Items.Add("CultureNeeded: " + ressources.CultureNeeded);
-            lbRessourcesStats.Items.Add("CultureAvailable: " + ressources.CultureAvailable);
-            lbRessourcesStats.Items.Add("EmploymentNeeded: " + ressources.EmploymentNeeded);
-            lbRessourcesStats.Items.Add("EmploymentAvailable: " + ressources.EmploymentAvailable);
+            lbPopulationStats.DataSource = populationStats;
 
+            // Ressources Stats
+            BindingList<RessourcesStat> ressourcesStats = new BindingList<RessourcesStat>();
+            ressourcesStats.Add(new RessourcesStat("Food Needed", ressources.FoodNeeded.ToString()));
+            ressourcesStats.Add(new RessourcesStat("Food Available", ressources.FoodAvailable.ToString()));
+            ressourcesStats.Add(new RessourcesStat("Water Needed", ressources.WaterNeeded.ToString()));
+            ressourcesStats.Add(new RessourcesStat("Water Available", ressources.WaterAvailable.ToString()));
+            ressourcesStats.Add(new RessourcesStat("Electricity Needed", ressources.ElectricityNeeded.ToString()));
+            ressourcesStats.Add(new RessourcesStat("Electricity Available", ressources.ElectricityAvailable.ToString()));
+            ressourcesStats.Add(new RessourcesStat("Fuel Needed", ressources.FuelNeeded.ToString()));
+            ressourcesStats.Add(new RessourcesStat("Fuel Available", ressources.FuelAvailable.ToString()));
+            ressourcesStats.Add(new RessourcesStat("Education Needed", ressources.EducationNeeded.ToString()));
+            ressourcesStats.Add(new RessourcesStat("Education Available", ressources.EducationAvailable.ToString()));
+            ressourcesStats.Add(new RessourcesStat("Culture Needed", ressources.CultureNeeded.ToString()));
+            ressourcesStats.Add(new RessourcesStat("Culture Available", ressources.CultureAvailable.ToString()));
+            ressourcesStats.Add(new RessourcesStat("Employment Needed", ressources.EmploymentNeeded.ToString()));
+            ressourcesStats.Add(new RessourcesStat("Employment Available", ressources.EmploymentAvailable.ToString()));
 
-            lbStockExchangeStats.Items.Add("*************** City Stock Exchange ****************");
-            lbStockExchangeStats.Items.Add("TaxRate: " + stockExchange.TaxRate);
-            lbStockExchangeStats.Items.Add("FoodRate: " + stockExchange.FoodRate);
-            lbStockExchangeStats.Items.Add("WaterRate: " + stockExchange.WaterRate);
-            lbStockExchangeStats.Items.Add("ElectricityRate: " + stockExchange.ElectricityRate);
-            lbStockExchangeStats.Items.Add("FuelRate: " + stockExchange.FuelRate);
-            lbStockExchangeStats.Items.Add("*************** World Stock Exchange ****************");
-            lbStockExchangeStats.Items.Add("TaxRate: " + worldStockExchange.TaxRate);
-            lbStockExchangeStats.Items.Add("FoodRate: " + worldStockExchange.FoodRate);
-            lbStockExchangeStats.Items.Add("WaterRate: " + worldStockExchange.WaterRate);
-            lbStockExchangeStats.Items.Add("ElectricityRate: " + worldStockExchange.ElectricityRate);
-            lbStockExchangeStats.Items.Add("FuelRate: " + worldStockExchange.FuelRate);
+            lbRessourcesStats.DataSource = ressourcesStats;
+
+            // Stock Exchange Stats
+            BindingList<StockExchangeStat> stockExchangeStats = new BindingList<StockExchangeStat>();
+            stockExchangeStats.Add(new StockExchangeStat("*************** City Stock Exchange ****************", ""));
+            stockExchangeStats.Add(new StockExchangeStat("Tax Rate", stockExchange.TaxRate.ToString()));
+            stockExchangeStats.Add(new StockExchangeStat("Food Rate", stockExchange.FoodRate.ToString()));
+            stockExchangeStats.Add(new StockExchangeStat("Water Rate", stockExchange.WaterRate.ToString()));
+            stockExchangeStats.Add(new StockExchangeStat("Electricity Rate", stockExchange.ElectricityRate.ToString()));
+            stockExchangeStats.Add(new StockExchangeStat("Fuel Rate", stockExchange.FuelRate.ToString()));
+            stockExchangeStats.Add(new StockExchangeStat("*************** World Stock Exchange ****************", ""));
+            stockExchangeStats.Add(new StockExchangeStat("Tax Rate", worldStockExchange.TaxRate.ToString()));
+            stockExchangeStats.Add(new StockExchangeStat("Food Rate", worldStockExchange.FoodRate.ToString()));
+            stockExchangeStats.Add(new StockExchangeStat("Water Rate", worldStockExchange.WaterRate.ToString()));
+            stockExchangeStats.Add(new StockExchangeStat("Electricity Rate", worldStockExchange.ElectricityRate.ToString()));
+            stockExchangeStats.Add(new StockExchangeStat("Fuel Rate", worldStockExchange.FuelRate.ToString()));
+
+            lbStockExchangeStats.DataSource = stockExchangeStats;
         }
+
 
         // Game Stats Fields
         public static Stopwatch gameTimeDuration = new Stopwatch();

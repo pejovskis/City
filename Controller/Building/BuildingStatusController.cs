@@ -11,7 +11,7 @@ namespace City.Controller.BuildingController
     // Workers Employed change
     public class BuildingStatusController
     {
-        public static void WorkersEmployedChange(Building Building, NumericUpDown inWorkersEmployed, Label lblWorkersEmployed)
+        public static void WorkersEmployedChange(Building Building, NumericUpDown inWorkersEmployed)
         {
             int InputWorkers = Convert.ToInt32(inWorkersEmployed.Value);
 
@@ -20,10 +20,9 @@ namespace City.Controller.BuildingController
                 Building.WorkersEmployed = InputWorkers;
             }
 
-            lblWorkersEmployed.Text = "Workers Employed: " + Building.WorkersEmployed;
         }
 
-        public static void SalaryMonthlyChange(Building Building, NumericUpDown inSalaryMonthly, Label lblSalaryMonthly)
+        public static void SalaryMonthlyChange(Building Building, NumericUpDown inSalaryMonthly)
         {
             int InputSalary = Convert.ToInt32(inSalaryMonthly.Value);
 
@@ -32,7 +31,6 @@ namespace City.Controller.BuildingController
                 Building.SalaryMonhtly = InputSalary;
             }
 
-            lblSalaryMonthly.Text = "Monthly Salary: " + Building.SalaryMonhtly;
         }
 
     }
