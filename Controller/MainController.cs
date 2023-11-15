@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using City.Model;
 using City.Model.Building;
 using City.Model.DataSource.MainStats;
 using City.Model.Global;
@@ -15,68 +16,69 @@ namespace City.Controller
 {
     public class MainController
     {
-        public static void InitializeStatsPanel(ListBox lbPopulationStats, ListBox lbRessourcesStats, ListBox lbStockExchangeStats, Population population, Ressources ressources, StockExchange stockExchange, StockExchange worldStockExchange)
+        public static void InitializeStatsPanel(ListBox lbPopulationStats, ListBox lbRessourcesStats, ListBox lbStockExchangeStats, Population population, Ressources ressources, StockExchange stockExchange)
         {
             // Population Stats
-            BindingList<PopulationStat> populationStats = new BindingList<PopulationStat>();
-            populationStats.Add(new PopulationStat("Size", population.Size.ToString()));
-            populationStats.Add(new PopulationStat("Happiness", population.Happiness.ToString()));
-            populationStats.Add(new PopulationStat("Hunger", population.Hunger.ToString()));
-            populationStats.Add(new PopulationStat("Thirst", population.Thirst.ToString()));
-            populationStats.Add(new PopulationStat("Education", population.Education.ToString()));
-            populationStats.Add(new PopulationStat("Budget", population.Budget.ToString()));
-            populationStats.Add(new PopulationStat("Efficiency", population.Efficiency.ToString()));
-            populationStats.Add(new PopulationStat("Brutto Income", population.BruttoIncome.ToString()));
-            populationStats.Add(new PopulationStat("Netto Income", population.NettoIncome.ToString()));
-            populationStats.Add(new PopulationStat("Expenses", population.Expenses.ToString()));
-            populationStats.Add(new PopulationStat("Health", population.Health.ToString()));
-            populationStats.Add(new PopulationStat("Fuel", population.Fuel.ToString()));
-            populationStats.Add(new PopulationStat("Social Life", population.SocialLife.ToString()));
-            populationStats.Add(new PopulationStat("Forbidden Things", population.ForbbidenThings.ToString()));
-            populationStats.Add(new PopulationStat("********** Stat Rates **********", ""));
-            populationStats.Add(new PopulationStat("Hunger Rate", population.HungerRate.ToString()));
-            populationStats.Add(new PopulationStat("Thirst Rate", population.ThirstRate.ToString()));
-            populationStats.Add(new PopulationStat("Education Rate", population.EducationRate.ToString()));
-            populationStats.Add(new PopulationStat("Health Rate", population.HealthRate.ToString()));
-            populationStats.Add(new PopulationStat("Fuel Rate", population.FuelRate.ToString()));
-            populationStats.Add(new PopulationStat("Social Life Rate", population.SocialLifeRate.ToString()));
-            populationStats.Add(new PopulationStat("Forbidden Things Rate", population.ForbbidenThingsRate.ToString()));
+            BindingList<PopulationStat> populationStats = new BindingList<PopulationStat>
+            {
+                new PopulationStat("Size", population.Size.ToString()),
+                new PopulationStat("Happiness", population.Happiness.ToString()),
+                new PopulationStat("Hunger", population.Hunger.ToString()),
+                new PopulationStat("Thirst", population.Thirst.ToString()),
+                new PopulationStat("Education", population.Education.ToString()),
+                new PopulationStat("Budget", population.Budget.ToString()),
+                new PopulationStat("Efficiency", population.Efficiency.ToString()),
+                new PopulationStat("Brutto Income", population.BruttoIncome.ToString()),
+                new PopulationStat("Netto Income", population.NettoIncome.ToString()),
+                new PopulationStat("Expenses", population.Expenses.ToString()),
+                new PopulationStat("Health", population.Health.ToString()),
+                new PopulationStat("Fuel", population.Fuel.ToString()),
+                new PopulationStat("Social Life", population.SocialLife.ToString()),
+                new PopulationStat("Forbidden Things", population.ForbbidenThings.ToString()),
+                new PopulationStat("********** Stat Rates **********", ""),
+                new PopulationStat("Hunger Rate", population.HungerRate.ToString()),
+                new PopulationStat("Thirst Rate", population.ThirstRate.ToString()),
+                new PopulationStat("Education Rate", population.EducationRate.ToString()),
+                new PopulationStat("Health Rate", population.HealthRate.ToString()),
+                new PopulationStat("Fuel Rate", population.FuelRate.ToString()),
+                new PopulationStat("Social Life Rate", population.SocialLifeRate.ToString()),
+                new PopulationStat("Forbidden Things Rate", population.ForbbidenThingsRate.ToString())
+            };
 
             lbPopulationStats.DataSource = populationStats;
 
             // Ressources Stats
-            BindingList<RessourcesStat> ressourcesStats = new BindingList<RessourcesStat>();
-            ressourcesStats.Add(new RessourcesStat("Food Needed", ressources.FoodNeeded.ToString()));
-            ressourcesStats.Add(new RessourcesStat("Food Available", ressources.FoodAvailable.ToString()));
-            ressourcesStats.Add(new RessourcesStat("Water Needed", ressources.WaterNeeded.ToString()));
-            ressourcesStats.Add(new RessourcesStat("Water Available", ressources.WaterAvailable.ToString()));
-            ressourcesStats.Add(new RessourcesStat("Electricity Needed", ressources.ElectricityNeeded.ToString()));
-            ressourcesStats.Add(new RessourcesStat("Electricity Available", ressources.ElectricityAvailable.ToString()));
-            ressourcesStats.Add(new RessourcesStat("Fuel Needed", ressources.FuelNeeded.ToString()));
-            ressourcesStats.Add(new RessourcesStat("Fuel Available", ressources.FuelAvailable.ToString()));
-            ressourcesStats.Add(new RessourcesStat("Education Needed", ressources.EducationNeeded.ToString()));
-            ressourcesStats.Add(new RessourcesStat("Education Available", ressources.EducationAvailable.ToString()));
-            ressourcesStats.Add(new RessourcesStat("Culture Needed", ressources.CultureNeeded.ToString()));
-            ressourcesStats.Add(new RessourcesStat("Culture Available", ressources.CultureAvailable.ToString()));
-            ressourcesStats.Add(new RessourcesStat("Employment Needed", ressources.EmploymentNeeded.ToString()));
-            ressourcesStats.Add(new RessourcesStat("Employment Available", ressources.EmploymentAvailable.ToString()));
+            BindingList<RessourcesStat> ressourcesStats = new BindingList<RessourcesStat>
+            {
+                new RessourcesStat("Food Needed", ressources.FoodNeeded.ToString()),
+                new RessourcesStat("Food Available", ressources.FoodAvailable.ToString()),
+                new RessourcesStat("Water Needed", ressources.WaterNeeded.ToString()),
+                new RessourcesStat("Water Available", ressources.WaterAvailable.ToString()),
+                new RessourcesStat("Electricity Needed", ressources.ElectricityNeeded.ToString()),
+                new RessourcesStat("Electricity Available", ressources.ElectricityAvailable.ToString()),
+                new RessourcesStat("Fuel Needed", ressources.FuelNeeded.ToString()),
+                new RessourcesStat("Fuel Available", ressources.FuelAvailable.ToString()),
+                new RessourcesStat("Education Needed", ressources.EducationNeeded.ToString()),
+                new RessourcesStat("Education Available", ressources.EducationAvailable.ToString()),
+                new RessourcesStat("Culture Needed", ressources.CultureNeeded.ToString()),
+                new RessourcesStat("Culture Available", ressources.CultureAvailable.ToString()),
+                new RessourcesStat("Employment Needed", ressources.EmploymentNeeded.ToString()),
+                new RessourcesStat("Employment Available", ressources.EmploymentAvailable.ToString())
+            };
 
             lbRessourcesStats.DataSource = ressourcesStats;
 
             // Stock Exchange Stats
-            BindingList<StockExchangeStat> stockExchangeStats = new BindingList<StockExchangeStat>();
-            stockExchangeStats.Add(new StockExchangeStat("*************** City Stock Exchange ****************", ""));
-            stockExchangeStats.Add(new StockExchangeStat("Tax Rate", stockExchange.TaxRate.ToString()));
-            stockExchangeStats.Add(new StockExchangeStat("Food Rate", stockExchange.FoodRate.ToString()));
-            stockExchangeStats.Add(new StockExchangeStat("Water Rate", stockExchange.WaterRate.ToString()));
-            stockExchangeStats.Add(new StockExchangeStat("Electricity Rate", stockExchange.ElectricityRate.ToString()));
-            stockExchangeStats.Add(new StockExchangeStat("Fuel Rate", stockExchange.FuelRate.ToString()));
-            stockExchangeStats.Add(new StockExchangeStat("*************** World Stock Exchange ****************", ""));
-            stockExchangeStats.Add(new StockExchangeStat("Tax Rate", worldStockExchange.TaxRate.ToString()));
-            stockExchangeStats.Add(new StockExchangeStat("Food Rate", worldStockExchange.FoodRate.ToString()));
-            stockExchangeStats.Add(new StockExchangeStat("Water Rate", worldStockExchange.WaterRate.ToString()));
-            stockExchangeStats.Add(new StockExchangeStat("Electricity Rate", worldStockExchange.ElectricityRate.ToString()));
-            stockExchangeStats.Add(new StockExchangeStat("Fuel Rate", worldStockExchange.FuelRate.ToString()));
+            BindingList<StockExchangeStat> stockExchangeStats = new BindingList<StockExchangeStat>
+            {
+                new StockExchangeStat("*************** City Stock Exchange ****************", ""),
+                new StockExchangeStat("Tax Rate", stockExchange.TaxRate.ToString()),
+                new StockExchangeStat("Food Rate", stockExchange.FoodRate.ToString()),
+                new StockExchangeStat("Water Rate", stockExchange.WaterRate.ToString()),
+                new StockExchangeStat("Electricity Rate", stockExchange.ElectricityRate.ToString()),
+                new StockExchangeStat("Fuel Rate", stockExchange.FuelRate.ToString()),
+                new StockExchangeStat("*************** World Stock Exchange ****************", "")
+            };
 
             lbStockExchangeStats.DataSource = stockExchangeStats;
         }

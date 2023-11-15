@@ -18,7 +18,6 @@ namespace City.View.Gameplay
     public partial class Main : Form
     {
         private Building[] buildings;
-        private StockExchange worldStockExchange;
         private StockExchange stockExchange;
         private Population population;
         private Ressources ressources;
@@ -36,8 +35,8 @@ namespace City.View.Gameplay
 
         private void InitializeUnits()
         {
-            InitalizeStockExchange();
             InitializeBuildings();
+            InitalizeStockExchange();
             InitializePopulation();
             InitializeRessources();
             InitializeTime();
@@ -62,13 +61,16 @@ namespace City.View.Gameplay
         {
             GetGameTime(); // Call your ShowTime method
 
-            CityHall cityHall = (CityHall) buildings[0];
-            cityHall.TaxIncrease();
+            if (buildings[0] is CityHall cityHall)
+            {
+                cityHall.TaxIncrease();
+            }
+
 
             // GameCurrentStatusUpdate(); // TEST FUNCTION EXAMPLE
         }
 
-        /* TEST FUNCTION EXAMPLE
+        /* TEST FUNCTION EXAMPLE 
         private void GameCurrentStatusUpdate()
         {
             population.Size++;
@@ -98,8 +100,7 @@ namespace City.View.Gameplay
 
         private void InitalizeStockExchange()
         {
-            worldStockExchange = new StockExchange(0.19f, 30f, 18f, 35f, 20f);
-            stockExchange = new StockExchange(0.19f, 30f, 18f, 35f, 20f);
+            stockExchange = new StockExchange(buildings, 30f, 18f, 35f, 20f);
         }
 
         private void InitializePopulation()
@@ -117,9 +118,9 @@ namespace City.View.Gameplay
 
             buildings = new Building[]
             {
-                new CityHall(0, "City Hall", 100, 58, "Hearth of the city", 50, 10000000, 60, stockExchange.TaxRate),
-                new Bank(1, "City Bank", 95, 60, "Bank of the bros", 50, 1000000, 40, stockExchange.TaxRate),
-                new GasStation(2, "Gas Station", 85, 50,"Fuel for the bros", 50, 750000, 10, stockExchange.TaxRate)
+                new CityHall(0, "City Hall", 100, 58, "Hearth of the city", 50, 10000000, 60, 0.19f),
+                new Bank(1, "City Bank", 95, 60, "Bank of the bros", 50, 1000000, 40, 0.19f),
+                new GasStation(2, "Gas Station", 85, 50,"Fuel for the bros", 50, 750000, 10, 0.19f)
             };
 
         }
@@ -139,7 +140,7 @@ namespace City.View.Gameplay
 
         private void InitializeStatsPanel()
         {
-            MainController.InitializeStatsPanel(lbPopulationStats, lbRessourcesStats, lbStockExchangeStats, population, ressources, stockExchange, worldStockExchange);
+            MainController.InitializeStatsPanel(lbPopulationStats, lbRessourcesStats, lbStockExchangeStats, population, ressources, stockExchange);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -153,6 +154,11 @@ namespace City.View.Gameplay
         }
 
         private void lbStockExchangeStats_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
 
         }

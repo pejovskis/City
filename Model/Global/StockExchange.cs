@@ -16,12 +16,11 @@ namespace City.Model.Global
         public float WaterRate { get; set; }
         public float ElectricityRate { get; set; }
         public float FuelRate { get; set; }
-        public Building.Building Building { get; set; }
 
         // Constructor
-        public StockExchange(float taxRate, float foodRate, float waterRate, float electricityRate, float fuelRate) 
+        public StockExchange(Building.Building[] buildings, float foodRate, float waterRate, float electricityRate, float fuelRate) 
         {
-            TaxRate = taxRate;
+            TaxRate = buildings[0].TaxRate;
             FoodRate = foodRate;
             WaterRate = waterRate;
             ElectricityRate = electricityRate;
