@@ -138,6 +138,7 @@
             btnCityHall.TabIndex = 24;
             btnCityHall.Text = "CityHall";
             btnCityHall.UseVisualStyleBackColor = true;
+            btnCityHall.Click += btnCityHall_Click;
             // 
             // btnGasStation
             // 

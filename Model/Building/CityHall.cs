@@ -1,9 +1,24 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
 
 namespace City.Model.Building
 {
     public class CityHall : Building
     {
+
+        private float taxRate;
+        public float TaxRate
+        {
+            get { return taxRate; }
+            set
+            {
+                if (taxRate != value)
+                {
+                    taxRate = value;
+                    OnPropertyChanged(nameof(TaxRate)); // Assuming OnPropertyChanged is implemented in Unit
+                }
+            }
+        }
 
         //Constructor
         public CityHall(int Id, 
@@ -23,10 +38,9 @@ namespace City.Model.Building
                   Description, 
                   WorkerCapacity, 
                   PriceBuy, 
-                  BankruptTolerance,
-                  TaxRate)
+                  BankruptTolerance)
         {
-            
+            this.TaxRate = TaxRate;
         }
 
         public void TaxIncrease()

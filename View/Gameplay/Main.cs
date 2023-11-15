@@ -17,10 +17,10 @@ namespace City.View.Gameplay
 {
     public partial class Main : Form
     {
-        private Building[] buildings;
-        private StockExchange stockExchange;
-        private Population population;
-        private Ressources ressources;
+        public Building[] buildings;
+        public StockExchange stockExchange;
+        public Population population;
+        public Ressources ressources;
 
         // Constructor
         public Main()
@@ -29,6 +29,7 @@ namespace City.View.Gameplay
             InitializeUnits();
             InitializeButtons();
             InitializeStatsPanel();
+            InitializeDataBinding();
         }
 
         private System.Windows.Forms.Timer timer1;
@@ -119,8 +120,8 @@ namespace City.View.Gameplay
             buildings = new Building[]
             {
                 new CityHall(0, "City Hall", 100, 58, "Hearth of the city", 50, 10000000, 60, 0.19f),
-                new Bank(1, "City Bank", 95, 60, "Bank of the bros", 50, 1000000, 40, 0.19f),
-                new GasStation(2, "Gas Station", 85, 50,"Fuel for the bros", 50, 750000, 10, 0.19f)
+                new Bank(1, "City Bank", 95, 60, "Bank of the bros", 50, 1000000, 40),
+                new GasStation(2, "Gas Station", 85, 50,"Fuel for the bros", 50, 750000, 10)
             };
 
         }
@@ -140,8 +141,17 @@ namespace City.View.Gameplay
 
         private void InitializeStatsPanel()
         {
+            var MainController = new MainController();
             MainController.InitializeStatsPanel(lbPopulationStats, lbRessourcesStats, lbStockExchangeStats, population, ressources, stockExchange);
         }
+
+        private void InitializeDataBinding()
+        {
+            // Assuming you have a label named lblTaxRate for displaying the TaxRate
+            lbStockExchangeStats.DataBindings.Add("Text", buildings[0], "TaxRate", true, DataSourceUpdateMode.OnPropertyChanged);
+        }
+
+
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -159,6 +169,11 @@ namespace City.View.Gameplay
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCityHall_Click(object sender, EventArgs e)
         {
 
         }

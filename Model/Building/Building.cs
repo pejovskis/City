@@ -237,8 +237,7 @@ namespace City.Model.Building
             string description,
             int _workerCapacity,
             float priceToBuy,
-            float bankruptTolerance,
-            float taxRate
+            float bankruptTolerance
         )
         {
             // Manual Constructor
@@ -251,7 +250,6 @@ namespace City.Model.Building
             WorkersEmployed = WorkerCapacity;  // Assuming this should always match initially
             PriceToBuy = priceToBuy;
             BankruptTolerance = bankruptTolerance;
-            TaxRate = taxRate;
         }
 
 

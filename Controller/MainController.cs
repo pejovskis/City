@@ -1,25 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using City.Model;
-using City.Model.Building;
 using City.Model.DataSource.MainStats;
 using City.Model.Global;
 using City.Model.Robot;
-using static City.Model.DataSource.MainStats.StockExchangeStat;
 
 namespace City.Controller
 {
     public class MainController
     {
-        public static void InitializeStatsPanel(ListBox lbPopulationStats, ListBox lbRessourcesStats, ListBox lbStockExchangeStats, Population population, Ressources ressources, StockExchange stockExchange)
+
+        public BindingList<PopulationStat> populationStats;
+        public BindingList<RessourcesStat> ressourcesStats;
+        public BindingList<StockExchangeStat> stockExchangeStats;
+
+        public void InitializeStatsPanel(ListBox lbPopulationStats, ListBox lbRessourcesStats, ListBox lbStockExchangeStats, Population population, Ressources ressources, StockExchange stockExchange)
         {
             // Population Stats
-            BindingList<PopulationStat> populationStats = new BindingList<PopulationStat>
+            populationStats = new BindingList<PopulationStat>
             {
                 new PopulationStat("Size", population.Size.ToString()),
                 new PopulationStat("Happiness", population.Happiness.ToString()),
@@ -48,7 +46,7 @@ namespace City.Controller
             lbPopulationStats.DataSource = populationStats;
 
             // Ressources Stats
-            BindingList<RessourcesStat> ressourcesStats = new BindingList<RessourcesStat>
+            ressourcesStats = new BindingList<RessourcesStat>
             {
                 new RessourcesStat("Food Needed", ressources.FoodNeeded.ToString()),
                 new RessourcesStat("Food Available", ressources.FoodAvailable.ToString()),
@@ -69,15 +67,14 @@ namespace City.Controller
             lbRessourcesStats.DataSource = ressourcesStats;
 
             // Stock Exchange Stats
-            BindingList<StockExchangeStat> stockExchangeStats = new BindingList<StockExchangeStat>
+            stockExchangeStats = new BindingList<StockExchangeStat>
             {
                 new StockExchangeStat("*************** City Stock Exchange ****************", ""),
                 new StockExchangeStat("Tax Rate", stockExchange.TaxRate.ToString()),
                 new StockExchangeStat("Food Rate", stockExchange.FoodRate.ToString()),
                 new StockExchangeStat("Water Rate", stockExchange.WaterRate.ToString()),
                 new StockExchangeStat("Electricity Rate", stockExchange.ElectricityRate.ToString()),
-                new StockExchangeStat("Fuel Rate", stockExchange.FuelRate.ToString()),
-                new StockExchangeStat("*************** World Stock Exchange ****************", "")
+                new StockExchangeStat("Fuel Rate", stockExchange.FuelRate.ToString())
             };
 
             lbStockExchangeStats.DataSource = stockExchangeStats;

@@ -9,8 +9,7 @@
             string Description, 
             int WorkerCapacity, 
             float PriceBuy, 
-            int BankruptTolerance,
-            float TaxRate
+            int BankruptTolerance
             ) 
             : base(Id, 
                   Name, 
@@ -19,8 +18,7 @@
                   Description, 
                   WorkerCapacity, 
                   PriceBuy, 
-                  BankruptTolerance,
-                  TaxRate)
+                  BankruptTolerance)
         {
         }
 
